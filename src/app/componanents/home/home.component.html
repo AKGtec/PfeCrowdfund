@@ -1,0 +1,92 @@
+<div class="home-container">
+  <!-- Hero Section -->
+   <section class="hero-section">
+    <div class="hero-content">
+      <h1>Bring creative projects to life</h1>
+      <p class="subtitle">The world's largest funding platform for creative projects</p>
+      <div class="cta-buttons">
+       <button class="btn-primary" (click)="navigateTo('start-project')">Start a Project</button>
+        <button class="btn-secondary" (click)="navigateTo('projects')">Browse Projects</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories-section">
+    <h2>Browse by Category</h2>
+    <div class="categories-grid">
+      <div *ngFor="let category of featuredCategories" class="category-card">
+        <span class="material-icons">{{category.icon}}</span>
+        <h3>{{category.name}}</h3>
+        <p>{{category.count}} projects</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trending Projects -->
+  <section class="projects-section">
+    <div class="section-header">
+      <h2>Trending Projects</h2>
+      <a href="/projects" class="see-all">See all</a>
+    </div>
+    <div class="projects-grid">
+      <div *ngFor="let project of trendingProjects" class="project-card">
+        <div class="project-image" [style.backgroundImage]="'url(' + project.imageUrl + ')'"></div>
+        <div class="project-details">
+          <div class="project-category">{{project.category}}</div>
+          <h3>{{project.title}}</h3>
+          <p class="project-description">{{project.description}}</p>
+          
+          <div class="progress-container">
+            <div class="progress-bar" [style.width]="project.progress + '%'"></div>
+          </div>
+          
+          <div class="project-stats">
+            <div>
+              <span class="amount">{{project.amountRaised | currency}}</span>
+              <span>raised of {{project.goal | currency}} goal</span>
+            </div>
+            <div>
+              <span class="days">{{project.daysLeft}}</span>
+              <span>days left</span>
+            </div>
+          </div>
+          
+          <button class="btn-support">Support</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Stories -->
+  <section class="success-section">
+    <h2>Success Stories</h2>
+    <div class="success-grid">
+      <div *ngFor="let story of successStories" class="success-card">
+        <div class="success-image" [style.backgroundImage]="'url(' + story.imageUrl + ')'"></div>
+        <div class="success-details">
+          <h3>{{story.title}}</h3>
+          <div class="success-stats">
+            <div>
+              <mat-icon>attach_money</mat-icon>
+              <span>{{story.raised | currency}} raised</span>
+            </div>
+            <div>
+              <mat-icon>people</mat-icon>
+              <span>{{story.backers}} backers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to bring your idea to life?</h2>
+      <p>Join thousands of creators who've brought their dreams to reality through our platform.</p>
+      <button class="btn-primary" (click)="navigateTo('start-project')">Start Your Project</button>
+    </div>
+  </section>
+</div>

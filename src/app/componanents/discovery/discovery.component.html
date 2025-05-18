@@ -1,0 +1,129 @@
+<div class="discovery-container">
+  <div class="discovery-header">
+    <h1>Discover Projects</h1>
+    <p>Find inspiring projects to support</p>
+  </div>
+
+  <div class="discovery-content">
+    <!-- Filters Sidebar -->
+    <aside class="filters-sidebar">
+      <h3>Filters</h3>
+      
+      <form [formGroup]="filtersForm">
+        <div class="filter-group">
+          <label>Search</label>
+          <input type="text" formControlName="search" placeholder="Search projects...">
+        </div>
+        
+        <div class="filter-group">
+          <label>Category</label>
+          <select formControlName="category">
+            <option value="">All Categories</option>
+            <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label>Funding Type</label>
+          <select formControlName="fundingType">
+            <option value="">All Types</option>
+            <option value="Donation">Donation</option>
+            <option value="Reward">Reward-based</option>
+            <option value="Equity">Equity</option>
+            <option value="Loan">Loan</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label>Funding Goal Range</label>
+          <div class="range-inputs">
+            <input type="number" formControlName="minGoal" placeholder="Min">
+            <span>to</span>
+            <input type="number" formControlName="maxGoal" placeholder="Max">
+          </div>
+        </div>
+        
+        <div class="filter-group">
+          <label>Sort By</label>
+          <select formControlName="sort">
+            <option *ngFor="let option of sortOptions" [value]="option.value">{{option.label}}</option>
+          </select>
+        </div>
+        
+        <button type="button" class="reset-btn" (click)="resetFilters()">Reset Filters</button>
+      </form>
+    </aside>
+
+    <!-- Projects Grid -->
+    <main class="projects-grid-container">
+      <div class="sort-controls">
+        <span>{{filteredProjects.length}} projects found</span>
+      </div>
+
+      <div *ngIf="isLoading" class="loading-spinner">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+
+      <div *ngIf="!isLoading && filteredProjects.length === 0" class="no-results">
+        <mat-icon>search_off</mat-icon>
+        <h3>No projects found</h3>
+        <p>Try adjusting your search filters</p>
+      </div>
+
+      <div class="projects-grid">
+        <div *ngFor="let project of paginatedProjects" class="project-card" (click)="viewProject(project.projectId)">
+          <div class="project-image" [style.backgroundImage]="'url(' + project.coverImage + ')'">
+            <div class="project-category">
+          <mat-icon>{{getCategoryById(project.categoryId)?.icon}}</mat-icon>
+<span>{{getCategoryById(project.categoryId)?.name}}</span>
+
+            </div>
+          </div>
+          
+          <div class="project-details">
+            <h3>{{project.title}}</h3>
+            <p class="project-description">{{project.shortDescription | truncate:100}}</p>
+            
+            <div class="project-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" [style.width]="progressPercentage(project) + '%'"></div>
+              </div>
+              <div class="progress-stats">
+                <span class="percentage">{{progressPercentage(project) | number:'1.0-0'}}%</span>
+                <span class="amount">{{project.amountRaised | currency}} raised of {{project.fundingGoal | currency}}</span>
+              </div>
+            </div>
+            
+            <div class="project-meta">
+              <div class="views">
+                <mat-icon>visibility</mat-icon>
+                <span>{{project.viewsCount}} views</span>
+              </div>
+              <div class="days-left">
+                <mat-icon>schedule</mat-icon>
+                <span>{{daysLeft(project)}} days left</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div *ngIf="filteredProjects.length > itemsPerPage" class="pagination">
+        <button [disabled]="currentPage === 1" (click)="currentPage = currentPage - 1">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        
+        <span *ngFor="let page of getNumberArray(totalPages)" 
+              [class.active]="page === currentPage"
+              (click)="currentPage = page">
+          {{page}}
+        </span>
+        
+        <button [disabled]="currentPage === totalPages" (click)="currentPage = currentPage + 1">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </main>
+  </div>
+</div>

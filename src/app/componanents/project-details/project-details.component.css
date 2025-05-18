@@ -1,0 +1,214 @@
+.project-details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+}
+
+/* Hero Section */
+.project-hero {
+  position: relative;
+  height: 400px;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+}
+
+.hero-overlay h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.short-description {
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+
+/* Main Content Layout */
+.project-main {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.project-left {
+  flex: 2;
+}
+
+.project-right {
+  flex: 1;
+}
+
+/* Project Sections */
+.project-section {
+  margin-bottom: 3rem;
+}
+
+.project-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.project-description,
+.project-risks {
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+/* Funding Card */
+.funding-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  position: sticky;
+  top: 1rem;
+}
+
+.funding-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat {
+  text-align: center;
+}
+
+.amount, .number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #4CAF50;
+  display: block;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  display: block;
+}
+
+.progress-container {
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #4CAF50;
+  border-radius: 4px;
+}
+
+.support-btn {
+  width: 100%;
+  padding: 1rem;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 1.5rem;
+}
+
+.support-btn:hover {
+  background: #3e8e41;
+}
+
+.project-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.meta-item mat-icon {
+  font-size: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  color: #4CAF50;
+}
+
+/* Video Embed */
+.video-embed {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.video-embed h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.video-embed iframe {
+  width: 100%;
+  height: 250px;
+  border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .project-main {
+    flex-direction: column;
+  }
+
+  .project-hero {
+    height: 300px;
+  }
+
+  .hero-overlay h1 {
+    font-size: 2rem;
+  }
+
+  .short-description {
+    font-size: 1rem;
+  }
+
+  .funding-stats {
+    grid-template-columns: 1fr;
+  }
+}

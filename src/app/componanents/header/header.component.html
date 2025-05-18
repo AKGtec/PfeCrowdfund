@@ -1,0 +1,75 @@
+<header class="app-header">
+  <div class="header-container">
+    <!-- Logo -->
+    <div class="logo" (click)="navigateTo('')">
+      <span>CrowdFund</span>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
+      <ul>
+        <li><a (click)="navigateTo('')">Home</a></li>
+        <li><a (click)="navigateTo('projects')">Discover</a></li>
+        <li><a (click)="navigateTo('start-project')">Start a Project</a></li>
+        <li><a (click)="navigateTo('about')">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- User Actions -->
+    <div class="user-actions">
+      <div *ngIf="isLoggedIn" class="logged-in">
+        <button class="btn-notifications">
+          <i class="material-icons">notifications</i>
+        </button>
+        <div class="user-dropdown">
+          <button class="user-avatar" (click)="toggleDropdown()">
+            <img src="assets/default-avatar.jpg" alt="User">
+            <i class="material-icons dropdown-icon">arrow_drop_down</i>
+          </button>
+          <div class="dropdown-menu" [class.show]="showDropdown">
+            <a (click)="navigateTo('profile')">My Profile</a>
+            <a (click)="navigateTo('settings')">Settings</a>
+            <a (click)="logout()">Logout</a>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!isLoggedIn" class="logged-out">
+        <button class="user-avatar" (click)="toggleDropdown()">
+          <i class="material-icons">account_circle</i>
+          <i class="material-icons dropdown-icon">arrow_drop_down</i>
+        </button>
+        <div class="dropdown-menu" [class.show]="showDropdown">
+          <a (click)="navigateTo('login')">Login</a>
+          <a (click)="navigateTo('register')">Register</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" (click)="toggleMobileMenu()">
+      <i class="material-icons">{{ showMobileMenu ? 'close' : 'menu' }}</i>
+    </button>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" [class.active]="showMobileMenu">
+    <ul>
+      <li><a (click)="navigateTo('')">Home</a></li>
+      <li><a (click)="navigateTo('projects')">Discover</a></li>
+      <li><a (click)="navigateTo('start-project')">Start a Project</a></li>
+      <li><a (click)="navigateTo('about')">About</a></li>
+      <li *ngIf="!isLoggedIn">
+        <a (click)="navigateTo('login')">Login</a>
+      </li>
+      <li *ngIf="!isLoggedIn">
+        <a (click)="navigateTo('register')">Register</a>
+      </li>
+      <li *ngIf="isLoggedIn">
+        <a (click)="navigateTo('profile')">My Profile</a>
+      </li>
+      <li *ngIf="isLoggedIn">
+        <a (click)="logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</header>

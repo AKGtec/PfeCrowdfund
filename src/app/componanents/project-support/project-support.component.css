@@ -1,0 +1,125 @@
+.support-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Roboto', sans-serif;
+}
+
+h2, h3 {
+  margin-top: 0;
+  font-weight: 600;
+}
+
+.success-message {
+  text-align: center;
+  color: #2e7d32;
+}
+
+.success-message mat-icon {
+  font-size: 48px;
+  color: #2e7d32;
+}
+
+.success-message h3 {
+  margin: 16px 0 8px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.amount-input {
+  position: relative;
+}
+
+.amount-input .currency-symbol {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #555;
+}
+
+.amount-input input {
+  width: 95%;
+  padding: 10px 12px 10px 28px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+.amount-input input:focus {
+  border-color: #3f51b5;
+  outline: none;
+}
+
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+select:focus,
+textarea:focus {
+  border-color: #3f51b5;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 20px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 6px;
+}
+
+mat-spinner {
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.error-message {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.server-error {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .support-container {
+    padding: 16px;
+  }
+}

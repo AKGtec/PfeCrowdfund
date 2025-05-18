@@ -1,0 +1,82 @@
+<div class="project-details-container">
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && project" class="project-content">
+    <!-- Hero Section -->
+    <section class="project-hero">
+      <div class="hero-image" [style.backgroundImage]="'url(' + project.coverImage + ')'"></div>
+      <div class="hero-overlay">
+        <h1>{{ project.title }}</h1>
+        <p class="short-description">{{ project.shortDescription }}</p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="project-main">
+      <!-- Left Column -->
+      <div class="project-left">
+        <!-- Project Description -->
+        <section class="project-section">
+          <h2>About this project</h2>
+          <div class="project-description" [innerHTML]="project.description | markdown"></div>
+        </section>
+
+        <!-- Risks & Challenges -->
+        <section *ngIf="project.risksChallenges" class="project-section">
+          <h2>Risks & Challenges</h2>
+          <div class="project-risks" [innerHTML]="project.risksChallenges | markdown"></div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div class="project-right">
+        <!-- Funding Card -->
+        <div class="funding-card">
+          <div class="funding-stats">
+            <div class="stat">
+              <span class="amount">{{ project.amountRaised | currency }}</span>
+              <span class="label">pledged of {{ project.fundingGoal | currency }} goal</span>
+            </div>
+            <div class="stat">
+              <span class="number">{{ project.viewsCount | number }}</span>
+              <span class="label">views</span>
+            </div>
+            <div class="stat">
+              <span class="number">{{ daysLeft }}</span>
+              <span class="label">days left</span>
+            </div>
+          </div>
+
+          <div class="progress-container">
+            <div class="progress-bar" [style.width]="progressPercentage + '%'"></div>
+          </div>
+
+          <button class="support-btn" (click)="navigateTo('project-support')">Support this project</button>
+
+          <div class="project-meta">
+            <div class="meta-item">
+              <mat-icon>calendar_today</mat-icon>
+              <span>Launched on {{ formatDate(project.startDate) }}</span>
+            </div>
+            <div class="meta-item">
+              <mat-icon>category</mat-icon>
+              <span>Category: {{ project.categoryId | categoryName }}</span>
+            </div>
+            <div class="meta-item">
+              <mat-icon>verified</mat-icon>
+              <span>Status: {{ project.status }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Embed -->
+        <div *ngIf="project.videoUrl" class="video-embed">
+          <h3>Project Video</h3>
+          <iframe [src]="project.videoUrl | safeUrl" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
