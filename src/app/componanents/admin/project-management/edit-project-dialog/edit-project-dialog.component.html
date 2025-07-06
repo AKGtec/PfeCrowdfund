@@ -1,59 +1,59 @@
-<h2 mat-dialog-title>Edit Project</h2>
+<h2 mat-dialog-title>Modifier le projet</h2>
 
 <mat-dialog-content>
   <form [formGroup]="editForm">
     <div class="form-row">
       <mat-form-field appearance="outline">
-        <mat-label>Title</mat-label>
+        <mat-label>Titre</mat-label>
         <input matInput formControlName="title">
-        <mat-error *ngIf="editForm.get('title')?.invalid">Title is required</mat-error>
+        <mat-error *ngIf="editForm.get('title')?.invalid">Le titre est requis</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Short Description</mat-label>
+        <mat-label>Description courte</mat-label>
         <textarea matInput formControlName="shortDescription" rows="2"></textarea>
-        <mat-error *ngIf="editForm.get('shortDescription')?.invalid">Short description is required</mat-error>
+        <mat-error *ngIf="editForm.get('shortDescription')?.invalid">La description courte est requise</mat-error>
       </mat-form-field>
     </div>
 
     <mat-form-field appearance="outline">
       <mat-label>Description</mat-label>
       <textarea matInput formControlName="description" rows="5"></textarea>
-      <mat-error *ngIf="editForm.get('description')?.invalid">Description is required</mat-error>
+      <mat-error *ngIf="editForm.get('description')?.invalid">La description est requise</mat-error>
     </mat-form-field>
 
     <div class="form-row">
       <mat-form-field appearance="outline">
-        <mat-label>Category</mat-label>
+        <mat-label>Catégorie</mat-label>
         <mat-select formControlName="categoryId">
           <mat-option *ngFor="let category of categories" [value]="category.categoryId">
             {{ category.name }}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="editForm.get('categoryId')?.invalid">Category is required</mat-error>
+        <mat-error *ngIf="editForm.get('categoryId')?.invalid">La catégorie est requise</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Funding Type</mat-label>
+        <mat-label>Type de financement</mat-label>
         <mat-select formControlName="fundingType">
           <mat-option *ngFor="let type of fundingTypes" [value]="type">
             {{ type }}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="editForm.get('fundingType')?.invalid">Funding type is required</mat-error>
+        <mat-error *ngIf="editForm.get('fundingType')?.invalid">Le type de financement est requis</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form-row">
       <mat-form-field appearance="outline">
-        <mat-label>Funding Goal</mat-label>
+        <mat-label>Objectif de financement</mat-label>
         <input matInput type="number" formControlName="fundingGoal">
         <span matPrefix>$&nbsp;</span>
-        <mat-error *ngIf="editForm.get('fundingGoal')?.invalid">Valid amount is required</mat-error>
+        <mat-error *ngIf="editForm.get('fundingGoal')?.invalid">Montant valide requis</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Status</mat-label>
+        <mat-label>Statut</mat-label>
         <mat-select formControlName="status">
           <mat-option *ngFor="let status of statusOptions" [value]="status">
             {{ status }}
@@ -64,25 +64,25 @@
 
     <div class="form-row">
       <mat-form-field appearance="outline">
-        <mat-label>Verification Status</mat-label>
+        <mat-label>Statut de vérification</mat-label>
         <mat-select formControlName="verificationStatus">
-          <mat-option value="Pending">Pending</mat-option>
-          <mat-option value="Verified">Verified</mat-option>
-          <mat-option value="Rejected">Rejected</mat-option>
+          <mat-option value="Pending">En attente</mat-option>
+          <mat-option value="Verified">Vérifié</mat-option>
+          <mat-option value="Rejected">Rejeté</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-checkbox formControlName="isFeatured">Featured Project</mat-checkbox>
+      <mat-checkbox formControlName="isFeatured">Projet en vedette</mat-checkbox>
     </div>
 
     <mat-form-field appearance="outline">
-      <mat-label>Risks & Challenges</mat-label>
+      <mat-label>Risques & Défis</mat-label>
       <textarea matInput formControlName="risksChallenges" rows="3"></textarea>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="editForm.invalid">Save Changes</button>
+  <button mat-button (click)="onCancel()">Annuler</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="editForm.invalid">Enregistrer les modifications</button>
 </mat-dialog-actions>
