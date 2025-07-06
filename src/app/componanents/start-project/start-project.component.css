@@ -170,7 +170,7 @@ select:focus {
 }
 
 .form-note {
-  color: #7f8c8d;
+  color: #7f8c8c;
   font-size: 0.85rem;
   margin-top: 1rem;
 }
@@ -212,4 +212,41 @@ select:focus {
       background: #eee;
     }
   }
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.existing-project-message {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.existing-project-message mat-icon {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+  color: #f44336;
+  margin-bottom: 1rem;
+}
+
+.existing-project-message h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.existing-project-message p {
+  color: #7f8c8d;
+  margin-bottom: 2rem;
+}
+
+.existing-project-message button {
+  padding: 0.5rem 2rem;
 }

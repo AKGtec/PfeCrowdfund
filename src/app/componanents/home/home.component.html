@@ -1,19 +1,19 @@
 <div class="home-container">
   <!-- Hero Section -->
-   <section class="hero-section">
+   <section class="hero-section" [ngStyle]="heroBackground">
     <div class="hero-content">
       <h1>Bring creative projects to life</h1>
       <p class="subtitle">The world's largest funding platform for creative projects</p>
       <div class="cta-buttons">
        <button class="btn-primary" (click)="navigateTo('start-project')">Start a Project</button>
-        <button class="btn-secondary" (click)="navigateTo('projects')">Browse Projects</button>
+        <button class="btn-secondary" (click)="navigateTo('discover')">Browse Projects</button>
       </div>
     </div>
   </section>
 
   <!-- Categories Section -->
   <section class="categories-section">
-    <h2>Browse by Category</h2>
+    <h2>Projects Category</h2>
     <div class="categories-grid">
       <div *ngFor="let category of featuredCategories" class="category-card">
         <span class="material-icons">{{category.icon}}</span>
@@ -27,7 +27,7 @@
   <section class="projects-section">
     <div class="section-header">
       <h2>Trending Projects</h2>
-      <a href="/projects" class="see-all">See all</a>
+      <a href="/discover" class="see-all">See all</a>
     </div>
     <div class="projects-grid">
       <div *ngFor="let project of trendingProjects" class="project-card">

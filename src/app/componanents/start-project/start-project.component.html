@@ -1,5 +1,15 @@
 <div class="start-project-container">
-  <div class="project-form-container">
+    <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && hasExistingProject" class="existing-project-message">
+    <mat-icon>warning</mat-icon>
+    <h2>Project Limit Reached</h2>
+    <p>You already have an active project. Only one project is allowed per user at a time.</p>
+    <button mat-raised-button color="primary" routerLink="/discover">Browse Projects</button>
+  </div>
+  <div *ngIf="!isLoading && !hasExistingProject" class="project-form-container">
     <h1>Start Your Project</h1>
     <p class="subtitle">Bring your creative idea to life with the support of our community</p>
     

@@ -1,0 +1,125 @@
+<div class="modify-project-container">
+  <div class="project-form-container">
+    <h1>Modify Your Project</h1>
+    <p class="subtitle">Update your project details</p>
+    
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+      <!-- Basic Information -->
+      <div class="form-section">
+        <h2>Basic Information</h2>
+        <div class="form-group">
+          <label for="title">Project Title*</label>
+          <input type="text" id="title" formControlName="title" placeholder="What's your project called?">
+          <div *ngIf="projectForm.get('title')?.invalid && projectForm.get('title')?.touched" class="error-message">
+            Title is required and must be at least 5 characters
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="category">Category*</label>
+            <select id="category" formControlName="categoryId">
+              <option value="">Select a category</option>
+              <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
+            </select>
+            <div *ngIf="projectForm.get('categoryId')?.invalid && projectForm.get('categoryId')?.touched" class="error-message">
+              Please select a category
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="fundingType">Funding Type*</label>
+            <select id="fundingType" formControlName="fundingType">
+              <option value="">Select funding type</option>
+              <option *ngFor="let type of fundingTypes" [value]="type.name">{{type.name}}</option>
+            </select>
+            <div *ngIf="projectForm.get('fundingType')?.invalid && projectForm.get('fundingType')?.touched" class="error-message">
+              Please select a funding type
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Project Details -->
+      <div class="form-section">
+        <h2>Project Details</h2>
+        <div class="form-group">
+          <label for="description">Project Description*</label>
+          <textarea id="description" formControlName="description" rows="6" 
+                    placeholder="Tell the world about your project (at least 50 characters)..."></textarea>
+          <div *ngIf="projectForm.get('description')?.invalid && projectForm.get('description')?.touched" class="error-message">
+            Description must be at least 50 characters
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="shortDescription">Short Description*</label>
+          <textarea id="shortDescription" formControlName="shortDescription" rows="2" 
+                    placeholder="A brief summary of your project (max 100 characters)" [readOnly]="true"></textarea>
+          <div class="character-count">
+            {{ projectForm.get('shortDescription')?.value?.length || 0 }}/100
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="risksChallenges">Risks & Challenges</label>
+          <textarea id="risksChallenges" formControlName="risksChallenges" rows="3" 
+                    placeholder="What challenges might you face and how will you overcome them?"></textarea>
+        </div>
+      </div>
+      
+      <!-- Funding Information -->
+      <div class="form-section">
+        <h2>Funding Information</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fundingGoal">Funding Goal (USD)*</label>
+            <input type="number" id="fundingGoal" formControlName="fundingGoal">
+            <div *ngIf="projectForm.get('fundingGoal')?.invalid && projectForm.get('fundingGoal')?.touched" class="error-message">
+              Minimum funding goal is $100
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="endDate">Campaign End Date*</label>
+            <input type="date" id="endDate" formControlName="endDate" [min]="getMinEndDate()">
+            <div *ngIf="projectForm.get('endDate')?.invalid && projectForm.get('endDate')?.touched" class="error-message">
+              Please select a valid end date
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Media -->
+      <div class="form-section">
+        <h2>Media</h2>
+        <div class="form-row">
+         <!-- <div class="form-group">
+            <label for="coverImage">Cover Image</label>
+            <input type="file" id="coverImage" (change)="onFileChange($event)" accept="image/*">
+            <small>Recommended size: 1200x675 pixels (Max 5MB)</small>
+            
+             Show current/preview image 
+            <div *ngIf="previewImage" class="image-preview">
+              <img [src]="previewImage" alt="Cover preview">
+              <button type="button" (click)="removeImage()">Change Image</button>
+            </div>
+          </div>-->
+          
+          <div class="form-group">
+            <label for="videoUrl">Video URL (Optional)</label>
+            <input type="url" id="videoUrl" formControlName="videoUrl" placeholder="https://youtube.com/yourvideo">
+            <small>YouTube or Vimeo links work best</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Section -->
+      <div class="form-submit">
+        <button type="submit" [disabled]="projectForm.invalid || isSubmitting" class="submit-btn">
+          {{ isSubmitting ? 'Updating...' : 'Update Project' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,7 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service.service';
+import { Project } from 'src/app/models/project.model';
+import { ContributionService } from 'src/app/services/contribution.service';
 
 @Component({
   selector: 'app-project-support',
@@ -9,9 +12,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./project-support.component.css']
 })
 export class ProjectSupportComponent implements OnInit {
-   projectId: number=6;
+   projectId!: number;
    fundingType: string="Reward";
    rewards: any[] = [];
+   project?: Project;
 
   supportForm!: FormGroup;
   paymentMethods = ['Credit Card', 'PayPal', 'Bank Transfer'];
@@ -21,34 +25,38 @@ export class ProjectSupportComponent implements OnInit {
   showSuccess = false;
 
   constructor(
-    private fb: FormBuilder,
-    private projectService: ProjectService,
-    private router: Router
+    readonly contributionService:ContributionService,
+    readonly fb: FormBuilder,
+    readonly projectService: ProjectService,
+    readonly router: Router,
+    readonly authService: AuthService,
+    readonly route: ActivatedRoute  
+
   ) {}
 
   ngOnInit(): void {
     this.initForm();
-    this.loadProject(this.projectId);
+    this.projectId = this.route.snapshot.params['id'];
+   this.loadProject(this.projectId)
+  
   }
 
   loadProject(projectId: number): void {
     this.projectService.getProjectById(projectId).subscribe({
       next: (project) => {
- 
-
-        this.supportForm = <any>project;
-
+        
+        this.project = project;  // Store project data
+        console.log(this.project)
       },
       error: (err) => {
         console.error('Error loading project:', err);
-
       }
     });
   }
 
   initForm(): void {
     this.supportForm = this.fb.group({
-      amount: ['', [Validators.required, Validators.min(1)]],
+      amount: ['', [Validators.required, Validators.min(100)]],
       paymentMethod: ['', Validators.required],
       message: [''],
       isAnonymous: [false],
@@ -79,40 +87,48 @@ export class ProjectSupportComponent implements OnInit {
       this.supportForm.markAllAsTouched();
       return;
     }
-
-   /* if (!this.authService.isAuthenticated()) {
-      this.router.navigate(['/login'], { queryParams: { returnUrl: this.router.url } });
-      return;
-    }*/
-
     this.isProcessing = true;
     this.errorMessage = '';
 
     const supportData = {
-      projectId: this.projectId,
+      projectId: Number(this.projectId),
       amount: this.supportForm.value.amount,
+      transactionId:"string",
+      status: "Pending",
       paymentMethod: this.supportForm.value.paymentMethod,
-      message: this.supportForm.value.message,
       isAnonymous: this.supportForm.value.isAnonymous,
-      rewardId: this.supportForm.value.rewardId
+      userId: Number(localStorage.getItem("userId"))
     };
-
-    this.projectService.supportProject(supportData).subscribe({
-      next: (response) => {
-        this.isProcessing = false;
-        this.showSuccess = true;
-        this.supportForm.reset();
-        // Redirect to payment if needed
-        if (response.paymentUrl) {
-          window.location.href = response.paymentUrl;
-        }
-      },
-      error: (err) => {
-        this.isProcessing = false;
-        this.errorMessage = err.error.message || 'An error occurred during payment processing.';
-      }
+    // First process the support transaction
+    this.contributionService.createContributions(supportData).subscribe({
+      next: () => {console.log("contribution created")},
+          error: (updateErr) => {
+              console.error('Error updating project amount:', updateErr);
+              // Still show success since the support was processed
+              this.isProcessing = false;
+              this.showSuccess = true;
+            }
+          });
+        // After successful support, update the project's amountRaised
+        if (this.project) {
+         this.project.amountRaised= (this.project.amountRaised || 0) + supportData.amount
+         console.log(this.projectId)
+          this.projectService.updateProject(this.projectId, this.project).subscribe({
+            next: () => {
+              
+              this.isProcessing = false;
+              this.showSuccess = true;
+              this.supportForm.reset()
+            },
+            error: (updateErr) => {
+              console.error('Error updating project amount:', updateErr);
+              // Still show success since the support was processed
+              this.isProcessing = false;
+              this.showSuccess = true;
+            }
     });
   }
+}
 
   get amount() {
     return this.supportForm.get('amount');

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project.model';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,12 +13,19 @@ export class ProjectDetailsComponent implements OnInit {
   project!: Project;
   isLoading = true;
   daysLeft: number=0;
-  progressPercentage: number =0;
+  progressPercentage: number = 0;
+    categories = [
+    { id: 5, name: 'Technology', icon: 'computer' },
+    { id: 2, name: 'Art & Creative', icon: 'palette' },
+    { id: 6, name: 'Social Causes', icon: 'favorite' },
+    { id: 8, name: 'Entrepreneurship', icon: 'business' },
+    { id: 9, name: 'Education', icon: 'school' }
+  ];
 
   constructor(
-    private route: ActivatedRoute,
-    private projectService: ProjectService,
-    private router: Router
+    readonly route: ActivatedRoute,
+    readonly projectService: ProjectService,
+    readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -27,23 +33,43 @@ export class ProjectDetailsComponent implements OnInit {
     this.loadProject(projectId);
   }
 
-  loadProject(projectId: number): void {
-    this.projectService.getProjectById(projectId).subscribe({
-      next: (project) => {
-        if (project.videoUrl.includes('watch?v=')) {
-  const videoId = project.videoUrl.split('watch?v=')[1];
-  project.videoUrl = `https://www.youtube.com/embed/${videoId}`;
-}
-        this.project = project;
-        this.calculateProjectMetrics();
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('Error loading project:', err);
-        this.isLoading = false;
-      }
-    });
+  editme(){
+    return this.project.userId===Number(localStorage.getItem("userId"))
   }
+loadProject(projectId: number): void {
+  this.projectService.getProjectById(projectId).subscribe({
+    next: (project) => {
+      if (project.videoUrl?.includes('watch?v=')) {
+        const videoId = project.videoUrl.split('watch?v=')[1];
+        project.videoUrl = `https://www.youtube.com/embed/${videoId}`;
+      }
+      this.project = project;
+      this.calculateProjectMetrics();
+      
+      // Update viewCount on the server
+      const updatedProject: Partial<Project> = {
+        ...project,
+        viewsCount: (project.viewsCount || 0) + 1
+      };
+      
+      this.projectService.updateProject(projectId, updatedProject).subscribe({
+        next: (response) => {
+          this.project = response; // Update local project with server response
+          console.log("View count updated successfully");
+        },
+        error: (err) => {
+          console.error('Error updating view count:', err);
+        }
+      });
+      
+      this.isLoading = false;
+    },
+    error: (err) => {
+      console.error('Error loading project:', err);
+      this.isLoading = false;
+    }
+  });
+}
 
   calculateProjectMetrics(): void {
     // Calculate days left
@@ -60,6 +86,17 @@ export class ProjectDetailsComponent implements OnInit {
     return new Date(dateString).toLocaleDateString(undefined, options);
   }
       navigateTo(route: string) {
+        route=route+this.project.projectId
+     this.router.navigate([route]);
+  }
+  
+      navigateTop(route: string) {
+        route=route+this.project.projectId
     this.router.navigate([route]);
+  }
+      getCategoryById(categoryId: number) {
+        console.log(this.categories.find(c => c.id === categoryId))
+    return this.categories.find(c => c.id === categoryId);
+
   }
 }

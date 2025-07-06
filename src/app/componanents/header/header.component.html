@@ -1,16 +1,17 @@
 <header class="app-header">
   <div class="header-container">
     <!-- Logo -->
-    <div class="logo" (click)="navigateTo('')">
-      <span>CrowdFund</span>
+    <div onkeydown="" class="logo" (click)="navigateTo('')">
+          <h1 class="logo-text">Crowd<span>Fund</span></h1>
+
     </div>
 
     <!-- Desktop Navigation -->
     <nav class="desktop-nav">
       <ul>
         <li><a (click)="navigateTo('')">Home</a></li>
-        <li><a (click)="navigateTo('projects')">Discover</a></li>
-        <li><a (click)="navigateTo('start-project')">Start a Project</a></li>
+        <li><a (click)="navigateTo('discover')">Discover</a></li>
+        <li><a *ngIf="!isAdmin() && !isBacker()" (click)="navigateTo('start-project')">Start a Project</a></li>
         <li><a (click)="navigateTo('about')">About</a></li>
       </ul>
     </nav>
@@ -26,11 +27,25 @@
             <img src="assets/default-avatar.jpg" alt="User">
             <i class="material-icons dropdown-icon">arrow_drop_down</i>
           </button>
-          <div class="dropdown-menu" [class.show]="showDropdown">
-            <a (click)="navigateTo('profile')">My Profile</a>
-            <a (click)="navigateTo('settings')">Settings</a>
-            <a (click)="logout()">Logout</a>
-          </div>
+  <div class="dropdown-menu" [class.show]="showDropdown">
+
+  <a (click)="navigateTo('settings')">
+    <mat-icon>settings</mat-icon>
+    <span>Settings</span>
+  </a>
+  <a *ngIf="isAdmin()" (click)="navigateTo('/dashboard/welcome')">
+    <mat-icon>dashboard</mat-icon>
+    <span>Admin dashboard</span>
+  </a>
+  <a *ngIf="isCreator()" (click)="navigateTop('/project/')">
+    <mat-icon>edit</mat-icon>
+    <span>My Project</span>
+  </a>
+  <a (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
+  </a>
+</div>
         </div>
       </div>
       <div *ngIf="!isLoggedIn" class="logged-out">
@@ -38,10 +53,20 @@
           <i class="material-icons">account_circle</i>
           <i class="material-icons dropdown-icon">arrow_drop_down</i>
         </button>
-        <div class="dropdown-menu" [class.show]="showDropdown">
-          <a (click)="navigateTo('login')">Login</a>
-          <a (click)="navigateTo('register')">Register</a>
-        </div>
+   <div class="dropdown-menu" [class.show]="showDropdown">
+  <a (click)="navigateTo('login')">
+    <mat-icon>login</mat-icon>
+    <span>Login</span>
+  </a>
+  <a *ngIf="isAdmin()" (click)="navigateTo('/dashboard')">
+    <mat-icon>dashboard</mat-icon>
+    <span>Admin dashboard</span>
+  </a>
+  <a *ngIf="isCreator()" (click)="navigateTo('/project/1')">
+    <mat-icon>edit</mat-icon>
+    <span>My Project</span>
+  </a>
+</div>
       </div>
     </div>
 
@@ -55,17 +80,11 @@
   <div class="mobile-nav" [class.active]="showMobileMenu">
     <ul>
       <li><a (click)="navigateTo('')">Home</a></li>
-      <li><a (click)="navigateTo('projects')">Discover</a></li>
-      <li><a (click)="navigateTo('start-project')">Start a Project</a></li>
+      <li><a (click)="navigateTo('discover')">Discover</a></li>
+      <li><a *ngIf="!isAdmin()" (click)="navigateTo('start-project')">Start a Project</a></li>
       <li><a (click)="navigateTo('about')">About</a></li>
       <li *ngIf="!isLoggedIn">
         <a (click)="navigateTo('login')">Login</a>
-      </li>
-      <li *ngIf="!isLoggedIn">
-        <a (click)="navigateTo('register')">Register</a>
-      </li>
-      <li *ngIf="isLoggedIn">
-        <a (click)="navigateTo('profile')">My Profile</a>
       </li>
       <li *ngIf="isLoggedIn">
         <a (click)="logout()">Logout</a>

@@ -78,3 +78,38 @@
   background-color: #bdc3c7;
   cursor: not-allowed;
 }
+/* Add these new styles */
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon mat-icon {
+  position: absolute;
+  left: 12px;
+  color: #666;
+}
+
+.input-with-icon input {
+  padding-left: 40px;
+}
+
+/* Update existing input styles */
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  padding-left: 40px; /* Add space for icon */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}

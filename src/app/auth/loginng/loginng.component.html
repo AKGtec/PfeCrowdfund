@@ -1,58 +1,62 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input 
-      type="email" 
-      id="email" 
-      formControlName="email" 
-      placeholder="Enter your email">
-    <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" 
-         class="error-message">
-      Please enter a valid email
+<div class="login-container">
+  <div class="logo-section">
+    <h1 class="logo-text">Crowd<span>Fund</span></h1>
+    <p class="subtitle">Welcome back!</p>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <div class="input-with-icon">
+        <mat-icon>email</mat-icon>
+        <input 
+          type="email" 
+          id="email" 
+          formControlName="email" 
+          placeholder="Enter your email">
+      </div>
+      <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" 
+           class="error-message">
+        Please enter a valid email
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input 
-      type="password" 
-      id="password" 
-      formControlName="password" 
-      placeholder="Enter your password">
-    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" 
-         class="error-message">
-      Password must be at least 6 characters
+    <div class="form-group">
+      <label for="password">Password</label>
+      <div class="input-with-icon">
+        <mat-icon>lock</mat-icon>
+        <input 
+          [type]="hidePassword ? 'password' : 'text'"
+          id="password" 
+          formControlName="password" 
+          placeholder="Enter your password">
+        <mat-icon class="password-toggle" (click)="hidePassword = !hidePassword">
+          {{hidePassword ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
+      </div>
+      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" 
+           class="error-message">
+        Password must be at least 6 characters
+      </div>
     </div>
-  </div>
 
-  <div class="form-options">
-    <div class="remember-me">
-      <input type="checkbox" id="remember" formControlName="rememberMe">
-      <label for="remember">Remember me</label>
+    <div class="form-options">
+      <div class="remember-me">
+        <mat-checkbox formControlName="rememberMe" color="primary">
+          Remember me
+        </mat-checkbox>
+      </div>
+      <a routerLink="/forgot-password">Forgot password?</a>
     </div>
-    <a routerLink="/forgot-password">Forgot password?</a>
-  </div>
 
-  <button type="submit" class="submit-btn" [disabled]="loginForm.invalid || isLoading">
-    <span *ngIf="!isLoading">Login</span>
-    <span *ngIf="isLoading">Logging in...</span>
-  </button>
+    <button type="submit" class="submit-btn" [disabled]="loginForm.invalid || isLoading">
+      <mat-icon *ngIf="!isLoading">login</mat-icon>
+      <span *ngIf="!isLoading">Login</span>
+      <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+    </button>
 
-  <div class="social-login">
-    <p>Or login with</p>
-    <div class="social-buttons">
-      <button type="button" class="social-btn google" (click)="loginWithGoogle()">
-        <img src="assets/icons/google.svg" alt="Google">
-        Google
-      </button>
-      <button type="button" class="social-btn facebook" (click)="loginWithFacebook()">
-        <img src="assets/icons/facebook.svg" alt="Facebook">
-        Facebook
-      </button>
+    <div *ngIf="errorMessage" class="error-message server-error">
+      {{ errorMessage }}
     </div>
-  </div>
-
-  <div *ngIf="errorMessage" class="error-message server-error">
-    {{ errorMessage }}
-  </div>
-</form>
+  </form>
+</div>

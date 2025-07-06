@@ -7,7 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  constructor(private router: Router){}
+
+    heroBackground = {
+    'background-image': `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url(${'/assets/hero-bg.jpg'})`
+  };
+  constructor(readonly router: Router){}
    featuredCategories = [
     { id: 1, name: 'Technology', icon: 'computer', count: 124 },
     { id: 2, name: 'Art & Creative', icon: 'palette', count: 89 },

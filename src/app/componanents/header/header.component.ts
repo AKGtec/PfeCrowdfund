@@ -1,5 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { Project } from 'src/app/models/project.model';
+import { AuthService } from 'src/app/services/auth.service.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-header',
@@ -7,13 +10,41 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  isLoggedIn = false; // You'll replace this with actual auth logic
+ isLoggedIn = false;
+  userRole: string | null = null;
   showMobileMenu = false;
   showDropdown = false;
+  projects:Project[]=[]
+  pro?:Project
 
-  constructor(private router: Router) {}
+    constructor(
+    readonly router: Router,
+    readonly authService: AuthService,
+    readonly projectservice :ProjectService
+  ) {
+    this.authService.currentUser$.subscribe(user => {
+      this.isLoggedIn = !!user;
+      this.userRole = this.authService.getUserRole();
+    });
+  }
 
   navigateTo(route: string) {
+    this.router.navigate([route]);
+    this.showMobileMenu = false;
+    this.showDropdown = false;
+  }
+  navigateTop(route: string) {
+
+      this.projectservice.getProjects().subscribe({
+    next: (project) => {
+      this.projects = project;
+
+    }, error: (err) => {
+      console.error('Error loading projects:', err);
+    }})
+    this.projects = this.projects.filter(project => project.userId == Number(localStorage.getItem('userId')));
+
+    route =route+this.projects[0].projectId
     this.router.navigate([route]);
     this.showMobileMenu = false;
     this.showDropdown = false;
@@ -34,9 +65,20 @@ export class HeaderComponent {
       this.showMobileMenu = false;
     }
   }
+    isAdmin(): boolean {
+    return this.userRole === 'Admin';
+  }
+  isBacker(): boolean {
+    return this.userRole === 'Backer';
+  }
+
+  isCreator(): boolean {
+    return this.userRole === 'ProjectOwner';
+  }
 
   logout() {
     // Implement your logout logic here
+    this.authService.logout();
     this.isLoggedIn = false;
     this.showDropdown = false;
     this.router.navigate(['/']);

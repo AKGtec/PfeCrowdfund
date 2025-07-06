@@ -1,67 +1,96 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
+
+interface AuthResponse {
+  token: string;
+  role: string;
+  userId: number;
+  expiration: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'api/auth';
-  private currentUserSubject = new BehaviorSubject<any>(null);
+  readonly apiUrl = 'https://localhost:7137/api/auth';
+  readonly currentUserSubject = new BehaviorSubject<any>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(
-    private http: HttpClient,
-    private router: Router
+    readonly http: HttpClient,
+    readonly router: Router
   ) {
-    // Initialize with user from localStorage if exists
-    const user = localStorage.getItem('currentUser');
-    if (user) {
-      this.currentUserSubject.next(JSON.parse(user));
+    const token = localStorage.getItem('token');
+    if (token) {
+      const user = this.getUserFromToken();
+      this.currentUserSubject.next(user);
     }
   }
 
-  login(email: string, password: string, rememberMe: boolean): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
-      tap((user) => {
-        if (rememberMe) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-        this.currentUserSubject.next(user);
-      })
+  login(email: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password }).pipe(
+      tap(response => this.handleAuthResponse(response))
     );
   }
 
-  register(name: string, email: string, password: string, userType: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, { name, email, password, userType }).pipe(
-      tap((user) => {
-        this.currentUserSubject.next(user);
-      })
+  register(username: string, lastName: string, phoneNumber: string, 
+          userType: string, email: string, password: string, 
+          confirmPassword: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, {
+      username, lastName, phoneNumber, userType, email, password, confirmPassword
+    }).pipe(
+      tap(response => this.handleAuthResponse(response))
     );
   }
 
-  loginWithGoogle() {
-    // Implement Google OAuth
-    window.location.href = `${this.apiUrl}/google`;
+  private handleAuthResponse(response: AuthResponse): void {
+    localStorage.setItem('token', response.token);
+    localStorage.setItem('userRole', response.role);
+    localStorage.setItem('userId', response.userId.toString());
+    localStorage.setItem('tokenExpiration', response.expiration);
+    this.currentUserSubject.next(response);
   }
 
-  loginWithFacebook() {
-    // Implement Facebook OAuth
-    window.location.href = `${this.apiUrl}/facebook`;
-  }
-
-  logout() {
-    localStorage.removeItem('currentUser');
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('tokenExpiration');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
 
-  get currentUserValue() {
-    return this.currentUserSubject.value;
+  getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
-  isAuthenticated() {
-    return !!this.currentUserValue;
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+
+    const expiration = localStorage.getItem('tokenExpiration');
+    if (!expiration) return false;
+
+    return new Date(expiration) > new Date();
+  }
+
+  getUserRole(): string | null {
+    return localStorage.getItem('userRole');
+  }
+
+  getUserId(): number | null {
+    const userId = localStorage.getItem('userId');
+    return userId ? parseInt(userId) : null;
+  }
+
+  private getUserFromToken(): any {
+    // Basic user object from stored data
+    return {
+      userId: this.getUserId(),
+      role: this.getUserRole()
+    };
   }
 }

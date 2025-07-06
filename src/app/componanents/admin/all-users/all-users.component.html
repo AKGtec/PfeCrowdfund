@@ -1,0 +1,91 @@
+<div class="users-container">
+  <div class="users-header">
+    <h2>User Management</h2>
+    <div class="search-bar">
+      <mat-form-field appearance="outline">
+        <mat-label>Search users</mat-label>
+        <input matInput [(ngModel)]="searchQuery" (input)="onSearch()" />
+        <button matSuffix mat-icon-button (click)="onSearch()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <table mat-table [dataSource]="filteredUsers" class="mat-elevation-z8">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let user">{{ user.userId }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let user">
+          <div class="user-info">
+            <img [src]="getUserProfilePicture(user.profilePicture)" alt="User" class="user-avatar">
+            <span>{{ user.firstName }} {{ user.lastName }}</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+      </ng-container>
+
+      <!-- User Type Column -->
+      <ng-container matColumnDef="userType">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let user">
+          <span class="user-type-badge"
+                [class.admin]="user.userType.toLowerCase() === 'admin'"
+                [class.super]="user.userType.toLowerCase() === 'super'">
+            {{ user.userType }}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let user">
+          <mat-slide-toggle
+            [checked]="user.status.toLowerCase() === 'active'"
+            (change)="toggleUserStatus(user)"
+            color="primary">
+            {{ user.status }}
+          </mat-slide-toggle>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let user">
+          <button mat-icon-button color="primary" (click)="openEditDialog(user)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator
+      [length]="filteredUsers.length"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>

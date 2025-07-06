@@ -44,7 +44,9 @@ h1, h2, h3 {
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../assets/hero-bg.jpg');
+
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+              url('/assets/hero-bg.jpg');  /* Updated path */
   background-size: cover;
   background-position: center;
   height: 500px;
@@ -150,6 +152,11 @@ h1, h2, h3 {
   height: 200px;
   background-size: cover;
   background-position: center;
+    transition: transform 0.3s ease-in-out;
+  transform-origin: center;
+}
+.project-card:hover .project-image {
+  transform: scale(1.1);
 }
 
 .project-details {
@@ -340,10 +347,4 @@ h1, h2, h3 {
   word-wrap: normal;
   direction: ltr;
   -webkit-font-smoothing: antialiased;
-}
-
-/* Update hero section to use color instead of image */
-.hero-section {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), #4CAF50;
-  /* rest of the styles */
 }

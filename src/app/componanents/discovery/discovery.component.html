@@ -6,25 +6,21 @@
 
   <div class="discovery-content">
     <!-- Filters Sidebar -->
-    <aside class="filters-sidebar">
-      <h3>Filters</h3>
-      
-      <form [formGroup]="filtersForm">
+<div class="filters-bar">
+      <form [formGroup]="filtersForm" class="filters-form-horizontal">
         <div class="filter-group">
-          <label>Search</label>
-          <input type="text" formControlName="search" placeholder="Search projects...">
+          <label for="search">Search</label>
+          <input class="search-input" type="text" formControlName="search" placeholder="Search projects...">
         </div>
-        
         <div class="filter-group">
-          <label>Category</label>
+          <label for="">Category</label>
           <select formControlName="category">
             <option value="">All Categories</option>
             <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
           </select>
         </div>
-        
         <div class="filter-group">
-          <label>Funding Type</label>
+          <label for="">Funding Type</label>
           <select formControlName="fundingType">
             <option value="">All Types</option>
             <option value="Donation">Donation</option>
@@ -33,26 +29,31 @@
             <option value="Loan">Loan</option>
           </select>
         </div>
-        
-        <div class="filter-group">
-          <label>Funding Goal Range</label>
-          <div class="range-inputs">
-            <input type="number" formControlName="minGoal" placeholder="Min">
-            <span>to</span>
-            <input type="number" formControlName="maxGoal" placeholder="Max">
+          <div class="filter-group">
+            <label for="">Funding Goal Range</label>
+            <div class="range-inputs">
+              <input 
+                type="number" 
+                formControlName="minGoal" 
+                placeholder="Min Amount"
+                min="0">
+              <span>to</span>
+              <input 
+                type="number" 
+                formControlName="maxGoal" 
+                placeholder="Max Amount"
+                min="0">
+            </div>
           </div>
-        </div>
-        
         <div class="filter-group">
-          <label>Sort By</label>
+          <label for="" >Sort By</label>
           <select formControlName="sort">
             <option *ngFor="let option of sortOptions" [value]="option.value">{{option.label}}</option>
           </select>
         </div>
-        
         <button type="button" class="reset-btn" (click)="resetFilters()">Reset Filters</button>
       </form>
-    </aside>
+    </div>
 
     <!-- Projects Grid -->
     <main class="projects-grid-container">
@@ -71,7 +72,7 @@
       </div>
 
       <div class="projects-grid">
-        <div *ngFor="let project of paginatedProjects" class="project-card" (click)="viewProject(project.projectId)">
+        <div onkeydown="" *ngFor="let project of paginatedProjects" class="project-card" (click)="viewProject(project.projectId)">
           <div class="project-image" [style.backgroundImage]="'url(' + project.coverImage + ')'">
             <div class="project-category">
           <mat-icon>{{getCategoryById(project.categoryId)?.icon}}</mat-icon>
@@ -114,7 +115,7 @@
           <mat-icon>chevron_left</mat-icon>
         </button>
         
-        <span *ngFor="let page of getNumberArray(totalPages)" 
+        <span onkeydown="" *ngFor="let page of getNumberArray(totalPages)" 
               [class.active]="page === currentPage"
               (click)="currentPage = page">
           {{page}}

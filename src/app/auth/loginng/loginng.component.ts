@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service.service';
 
 @Component({
@@ -12,17 +12,23 @@ export class LoginngComponent {
   loginForm: FormGroup;
   isLoading = false;
   errorMessage = '';
+    hidePassword = true;
+  returnUrl: string = '/';
+
 
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
+    readonly fb: FormBuilder,
+    readonly authService: AuthService,
+    readonly router: Router,
+    readonly route: ActivatedRoute
+
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      rememberMe: [false]
     });
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] ?? '/';
+
   }
 
   onSubmit() {
@@ -31,24 +37,38 @@ export class LoginngComponent {
     this.isLoading = true;
     this.errorMessage = '';
 
-    const { email, password, rememberMe } = this.loginForm.value;
+    const { email, password } = this.loginForm.value;
 
-    this.authService.login(email, password, rememberMe).subscribe({
+    this.authService.login(email, password).subscribe({
       next: () => {
-        this.router.navigate(['/']);
+        const userRole = this.authService.getUserRole();
+        
+        // Redirect based on role if no return URL
+        if (this.returnUrl === '/') {
+          switch(userRole) {
+            case 'Admin':
+              this.router.navigate(['/dashboard']);
+              break;
+            case 'ProjectOwner':
+              this.router.navigate(['/start-project']);
+              break;
+            case 'Backer':
+              this.router.navigate(['/discover']);
+              break;
+            default:
+              this.router.navigate(['/']);
+          }
+        } else {
+          // Navigate to return URL if it exists
+          this.router.navigate([this.returnUrl]);
+        }
       },
       error: (err) => {
-        this.errorMessage = err.message || 'Login failed. Please try again.';
+        this.errorMessage = err.message ?? 'Login failed. Please try again.';
         this.isLoading = false;
       }
     });
   }
 
-  loginWithGoogle() {
-    this.authService.loginWithGoogle();
-  }
 
-  loginWithFacebook() {
-    this.authService.loginWithFacebook();
-  }
 }

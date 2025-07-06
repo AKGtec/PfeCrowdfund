@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProjectService } from '../../services/project.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-start-project',
@@ -13,7 +14,9 @@ export class StartProjectComponent implements OnInit {
   previewImage: string | ArrayBuffer | null = null;
   imageFile: File | null = null;
   isSubmiting:boolean=true
-  
+  iduser = localStorage.getItem("userId")
+    hasExistingProject = false;
+  isLoading = true;
 
   categories = [
     { id: 5, name: 'Technology' },
@@ -31,10 +34,13 @@ export class StartProjectComponent implements OnInit {
   ];
 
   constructor(
-    private fb: FormBuilder,
-    private projectService: ProjectService,
-    private router: Router
+    readonly fb: FormBuilder,
+    readonly projectService: ProjectService,
+    readonly router: Router,
+        readonly snackBar: MatSnackBar
+
   ) {
+    this.checkExistingProject();
     this.projectForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
       categoryId: [0, Validators.required],
@@ -56,8 +62,42 @@ export class StartProjectComponent implements OnInit {
       });
     });
   }
+    private checkExistingProject(): void {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.projectService.getProjectsByUserId(Number(userId)).subscribe({
+      next: (projects) => {
+        if (projects && projects.length > 0) {
+          this.hasExistingProject = true;
+          this.snackBar.open(
+            'You already have an active project. You can only have one project at a time.',
+            'Close',
+            { duration: 5000 }
+          );
+          this.router.navigate(['/project', projects[0].projectId]);
+        }
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error checking existing projects:', err);
+        this.isLoading = false;
+      }
+    });
+  }
 
 onSubmit() {
+      if (this.hasExistingProject) {
+      this.snackBar.open(
+        'You already have an active project. You cannot create another one.',
+        'Close',
+        { duration: 3000 }
+      );
+      return;
+    }
   this.isSubmiting=false
   if (this.projectForm.invalid || !this.imageFile) {
     alert('Please fill all required fields and upload a cover image.');
@@ -78,6 +118,7 @@ formData.append('risksChallenges', this.projectForm.get('risksChallenges')?.valu
 // Append the image file if selected
 if (this.imageFile) {
 formData.append('ImageFile', this.imageFile);}
+formData.append('userId',this.iduser ??'0');
 
 this.projectService.createProject(formData).subscribe({
   next: (res) => {

@@ -1,0 +1,73 @@
+<div class="admin-sidebar">
+  <div class="sidebar-header">
+    <h3>Admin Dashboard</h3>
+  </div>
+  
+  <nav class="sidebar-menu">
+    <ul>
+      <!-- Dashboard -->
+      <li>
+        <a routerLink="/dashboard/welcome" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"title="Dashboard">
+          <mat-icon>dashboard</mat-icon>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      
+      <!-- Users Management -->
+      <li class="menu-section">
+        <div class="section-header">
+          <mat-icon>people</mat-icon>
+          <span>Users</span>
+        </div>
+        <ul>
+          <li>
+            <a routerLink="/dashboard/users" routerLinkActive="active" title="All Users">
+              <mat-icon>list</mat-icon>
+              <span>All Users</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      
+      <!-- Projects Management -->
+      <li class="menu-section">
+        <div class="section-header">
+          <mat-icon>rocket_launch</mat-icon>
+          <span>Projects</span>
+        </div>
+        <ul>
+          <li>
+            <a routerLink="/dashboard/manage" routerLinkActive="active">
+              <mat-icon>list</mat-icon>
+              <span>All Projects</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      
+      <!-- Contributions Management -->
+      <li class="menu-section">
+        <div class="section-header">
+          <mat-icon>payments</mat-icon>
+          <span>Contributions</span>
+        </div>
+        <ul>
+          <li>
+            <a routerLink="/dashboard/contribution" routerLinkActive="active">
+              <mat-icon>list</mat-icon>
+              <span>All Contributions</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      
+      <!-- Reports -->
+      <li>
+        <a routerLink="/admin/reports" routerLinkActive="active">
+          <mat-icon>flag</mat-icon>
+          <span>Reports</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

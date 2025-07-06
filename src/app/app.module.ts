@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +25,35 @@ import { MarkdownPipe } from './shared/pipes/markdown.pipe';
 import { SafeUrlPipe } from './shared/pipes/safe-url.pipe';
 import { CategoryNamePipe } from './shared/pipes/category-name.pipe';
 import { ProjectSupportComponent } from './componanents/project-support/project-support.component';
+import { AdminSidebarComponent } from './componanents/admin/admin-sidebar/admin-sidebar.component';
+import { AllUsersComponent } from './componanents/admin/all-users/all-users.component';
+import { EditUserDialogComponent } from './componanents/admin/all-users/edit-user-dialog/edit-user-dialog.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { AdminLayoutComponent } from './componanents/admin/admin-layout/admin-layout.component';
+import { ProjectManagementComponent } from './componanents/admin/project-management/project-management.component';
+import { EditProjectDialogComponent } from './componanents/admin/project-management/edit-project-dialog/edit-project-dialog.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ContributionComponent } from './componanents/admin/contribution/contribution.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { ConfirmDialogComponent } from './shared/confirmdialog/confirmdialog.component';
+import { ModifyProjectComponent } from './componanents/modify-project/modify-project.component';
+import { AuthInterceptor } from './interceptor/auth';
+import { SettingsComponent } from './componanents/settings/settings.component';
+import { MaterialModule } from '../app/models/Material.modole';
+import { WelcomeComponent } from './componanents/admin/welcome/welcome.component';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +71,20 @@ import { ProjectSupportComponent } from './componanents/project-support/project-
     MarkdownPipe,
     SafeUrlPipe,
     CategoryNamePipe,
-    ProjectSupportComponent
+    ProjectSupportComponent,
+    AdminSidebarComponent,
+    EditUserDialogComponent,
+    AllUsersComponent,
+    AdminLayoutComponent,
+    ProjectManagementComponent,
+    EditProjectDialogComponent,
+    ContributionComponent,
+    ConfirmDialogComponent,
+    ModifyProjectComponent,
+    SettingsComponent,
+    WelcomeComponent
+    
+
   ],
   imports: [
     BrowserModule,
@@ -55,9 +97,24 @@ import { ProjectSupportComponent } from './componanents/project-support/project-
     MatProgressSpinnerModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    CommonModule,
+    MatSnackBarModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatSlideToggleModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatProgressBarModule,
+    MatMenuModule,
+    MaterialModule
+
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

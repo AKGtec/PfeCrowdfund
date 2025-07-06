@@ -1,0 +1,88 @@
+<div class="admin-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Welcome to Admin Dashboard</h1>
+      <p class="subtitle">Manage and monitor your crowdfunding platform</p>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <mat-icon>people</mat-icon>
+        <div class="stat-details">
+          <h3>Total Users</h3>
+          <p class="stat-number">{{dashboardStats.totalUsers}}</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <mat-icon>folder</mat-icon>
+        <div class="stat-details">
+          <h3>Total Projects</h3>
+          <p class="stat-number">{{dashboardStats.totalProjects}}</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <mat-icon>pending</mat-icon>
+        <div class="stat-details">
+          <h3>Pending Approvals</h3>
+          <p class="stat-number">{{dashboardStats.pendingApprovals}}</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <mat-icon>attach_money</mat-icon>
+        <div class="stat-details">
+          <h3>Total Funding</h3>
+          <p class="stat-number">{{dashboardStats.totalFunding | currency}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Activity Section -->
+  <section class="activity-section">
+    <div class="section-header">
+      <h2>Recent Projects</h2>
+      <a routerLink="/admin/projects" class="see-all">See all projects</a>
+    </div>
+    <div class="activity-grid">
+      <div *ngFor="let project of recentProjects" class="activity-card">
+        <div class="activity-details">
+          <h3>{{project.title}}</h3>
+          <p class="creator">by {{project.creator}}</p>
+          <div class="status-chip" [class.pending]="project.status === 'Pending'">
+            {{project.status}}
+          </div>
+          <p class="submission-date">Submitted: {{project.submitDate | date}}</p>
+          <div class="category-tag">{{project.category}}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Users Section -->
+  <section class="users-section">
+    <div class="section-header">
+      <h2>Recent Users</h2>
+      <a routerLink="/admin/users" class="see-all">See all users</a>
+    </div>
+    <div class="users-grid">
+      <div *ngFor="let user of recentUsers" class="user-card">
+        <div class="user-avatar">
+          <mat-icon>account_circle</mat-icon>
+        </div>
+        <div class="user-details">
+          <h3>{{user.name}}</h3>
+          <p class="user-type">{{user.type}}</p>
+          <p class="join-date">Joined: {{user.joinDate | date}}</p>
+          <p class="project-count">Projects: {{user.projectCount}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

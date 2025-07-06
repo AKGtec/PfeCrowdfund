@@ -1,82 +1,97 @@
-<div class="project-details-container">
+<mat-card class="project-details-container">
   <div *ngIf="isLoading" class="loading-spinner">
     <mat-spinner diameter="50"></mat-spinner>
   </div>
 
   <div *ngIf="!isLoading && project" class="project-content">
     <!-- Hero Section -->
-    <section class="project-hero">
-      <div class="hero-image" [style.backgroundImage]="'url(' + project.coverImage + ')'"></div>
+    <section class="project-hero" [style.backgroundImage]="'url(' + project.coverImage + ')'">
       <div class="hero-overlay">
-        <h1>{{ project.title }}</h1>
-        <p class="short-description">{{ project.shortDescription }}</p>
+        <h1 class="hero-title">{{ project.title }}</h1>
+        <p class="hero-subtitle">{{ project.shortDescription }}</p>
       </div>
     </section>
 
     <!-- Main Content -->
-    <div class="project-main">
+    <div class="project-main-content">
       <!-- Left Column -->
-      <div class="project-left">
-        <!-- Project Description -->
-        <section class="project-section">
-          <h2>About this project</h2>
-          <div class="project-description" [innerHTML]="project.description | markdown"></div>
-        </section>
+      <div class="project-info">
+        <mat-card class="info-card">
+          <mat-card-header>
+            <mat-card-title>About This Project</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="project-description" [innerHTML]="project.description | markdown"></div>
+          </mat-card-content>
+        </mat-card>
 
-        <!-- Risks & Challenges -->
-        <section *ngIf="project.risksChallenges" class="project-section">
-          <h2>Risks & Challenges</h2>
-          <div class="project-risks" [innerHTML]="project.risksChallenges | markdown"></div>
-        </section>
+        <mat-card class="info-card" *ngIf="project.risksChallenges">
+          <mat-card-header>
+            <mat-card-title>Risks & Challenges</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="project-risks" [innerHTML]="project.risksChallenges | markdown"></div>
+          </mat-card-content>
+        </mat-card>
       </div>
 
       <!-- Right Column -->
-      <div class="project-right">
+      <div class="project-sidebar">
         <!-- Funding Card -->
-        <div class="funding-card">
-          <div class="funding-stats">
-            <div class="stat">
-              <span class="amount">{{ project.amountRaised | currency }}</span>
-              <span class="label">pledged of {{ project.fundingGoal | currency }} goal</span>
+        <mat-card class="funding-card">
+          <mat-card-content>
+            <div class="funding-progress">
+              <h2 class="amount-raised">{{ project.amountRaised | currency }}</h2>
+              <span class="funding-goal">pledged of {{ project.fundingGoal | currency }} goal</span>
             </div>
-            <div class="stat">
-              <span class="number">{{ project.viewsCount | number }}</span>
-              <span class="label">views</span>
+            
+            <mat-progress-bar class="progress-bar" mode="determinate" [value]="progressPercentage"></mat-progress-bar>
+            
+            <div class="funding-stats">
+              <div class="stat">
+                <span class="stat-value">{{ project.viewsCount | number }}</span>
+                <span class="stat-label">views</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">{{ daysLeft }}</span>
+                <span class="stat-label">days left</span>
+              </div>
             </div>
-            <div class="stat">
-              <span class="number">{{ daysLeft }}</span>
-              <span class="label">days left</span>
-            </div>
-          </div>
 
-          <div class="progress-container">
-            <div class="progress-bar" [style.width]="progressPercentage + '%'"></div>
-          </div>
+            <button *ngIf="!editme()" mat-flat-button color="primary" class="support-button" (click)="navigateTo('project-support/')">Support This Project</button>
+            <button *ngIf="editme()" mat-stroked-button color="accent" class="support-button" (click)="navigateTop('modify-project/')">Make Some Changes</button>
+            
+            <mat-divider></mat-divider>
 
-          <button class="support-btn" (click)="navigateTo('project-support')">Support this project</button>
-
-          <div class="project-meta">
-            <div class="meta-item">
-              <mat-icon>calendar_today</mat-icon>
-              <span>Launched on {{ formatDate(project.startDate) }}</span>
+            <div class="project-meta">
+              <div class="meta-item">
+                <mat-icon>event</mat-icon>
+                <span>Launched on {{ formatDate(project.startDate) }}</span>
+              </div>
+              <div class="meta-item">
+                <mat-icon>category</mat-icon>
+                <span>{{getCategoryById(project.categoryId)?.name}}</span>
+              </div>
+               <div class="meta-item">
+                <mat-icon>tag</mat-icon>
+                <span>{{ project.status }}</span>
+              </div>
             </div>
-            <div class="meta-item">
-              <mat-icon>category</mat-icon>
-              <span>Category: {{ project.categoryId | categoryName }}</span>
-            </div>
-            <div class="meta-item">
-              <mat-icon>verified</mat-icon>
-              <span>Status: {{ project.status }}</span>
-            </div>
-          </div>
-        </div>
+          </mat-card-content>
+        </mat-card>
 
         <!-- Video Embed -->
-        <div *ngIf="project.videoUrl" class="video-embed">
-          <h3>Project Video</h3>
-          <iframe [src]="project.videoUrl | safeUrl" frameborder="0" allowfullscreen></iframe>
-        </div>
+        <mat-card class="video-card" *ngIf="project.videoUrl">
+          <mat-card-header>
+            <mat-card-title>Project Video</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="video-embed">
+              <iframe title="Project Video" [src]="project.videoUrl | safeUrl" allowfullscreen></iframe>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </div>
     </div>
   </div>
-</div>
+</mat-card>

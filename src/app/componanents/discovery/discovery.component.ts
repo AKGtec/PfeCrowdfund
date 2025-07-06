@@ -35,9 +35,9 @@ export class DiscoveryComponent implements OnInit {
   totalProjects = 0;
 
   constructor(
-    private projectService: ProjectService,
-    private fb: FormBuilder,
-    private router: Router
+    readonly projectService: ProjectService,
+    readonly fb: FormBuilder,
+    readonly router: Router
   ) {
     this.filtersForm = this.fb.group({
       search: [''],
@@ -51,30 +51,33 @@ export class DiscoveryComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProjects();
-    
     this.filtersForm.valueChanges.subscribe(() => {
       this.applyFilters();
+      
     });
   }
 
-  loadProjects(): void {
-    this.isLoading = true;
-    this.projectService.getProjects().subscribe({
-      next: (projects) => {
-        this.projects = projects;
-        this.filteredProjects = [...projects];
-        this.totalProjects = projects.length;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('Error loading projects:', err);
-        this.isLoading = false;
-      }
-    });
-  }
+loadProjects(): void {
+  this.isLoading = true;
+  this.projectService.getProjects().subscribe({
+    next: (projects) => {
+      const approvedProjects = projects.filter(project => project.status === "Approved");
+      this.projects = approvedProjects;
+      this.filteredProjects = [...approvedProjects];
+      this.totalProjects = approvedProjects.length;
+      this.isLoading = false;
+    },
+    error: (err) => {
+      console.error('Error loading projects:', err);
+      this.isLoading = false;
+    }
+  });
+}
+
 
   applyFilters(): void {
     const filters = this.filtersForm.value;
+
     let results = [...this.projects];
 
     // Apply search filter
@@ -83,6 +86,7 @@ export class DiscoveryComponent implements OnInit {
       results = results.filter(project => 
         project.title.toLowerCase().includes(searchTerm) || 
         project.description.toLowerCase().includes(searchTerm)
+        
       );
     }
 

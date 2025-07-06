@@ -19,12 +19,38 @@
   margin: 0 auto;
 }
 
-.logo {
-  font-size: 1.5rem;
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.login-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
   font-weight: 700;
-  color: #4CAF50;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
   cursor: pointer;
 }
+
+.logo-text span {
+  color: #4CAF50;
+}
+
+
 
 .desktop-nav ul {
   display: flex;
@@ -37,6 +63,7 @@
   text-decoration: none;
   font-weight: 500;
   cursor: pointer;
+  font-size: 1.3em; 
   transition: color 0.3s;
 }
 
@@ -48,6 +75,8 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  position: relative;
+
 }
 
 .btn-login, .btn-signup {
@@ -97,6 +126,7 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
+
 }
 
 .mobile-menu-toggle {
@@ -152,17 +182,6 @@
 }
 
 
-
-
-
-/* User Dropdown Styles */
-.user-actions {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
 .user-dropdown, .logged-out {
   position: relative;
 }
@@ -183,12 +202,6 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.user-avatar img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-}
 
 .dropdown-icon {
   font-size: 1.2rem;
@@ -215,18 +228,24 @@
   visibility: visible;
   transform: translateY(0);
 }
-
+a{
+  cursor: pointer;
+}
 .dropdown-menu a {
   display: block;
   padding: 0.75rem 1rem;
   color: #333;
   text-decoration: none;
   transition: background-color 0.3s;
+  align-items: center;
+  gap: 0.75rem;
+
 }
 
 .dropdown-menu a:hover {
   background-color: #f5f5f5;
   color: #4CAF50;
+
 }
 
 /* Mobile adjustments */
@@ -239,3 +258,14 @@
     right: 1rem;
   }
 }
+
+
+
+.dropdown-menu mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  color: #666;
+}
+
+

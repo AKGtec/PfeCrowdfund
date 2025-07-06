@@ -19,9 +19,11 @@ export class RegisterngComponent {
     private authService: AuthService,
     private router: Router
   ) {
-    this.registerForm = this.fb.group({
-      name: ['', [Validators.required]],
+     this.registerForm = this.fb.group({
+      username: ['', [Validators.required]], // Changed from name to firstName
+      lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], // Add phone validation
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
       userType: ['Backer'],
@@ -37,9 +39,25 @@ export class RegisterngComponent {
     this.isLoading = true;
     this.errorMessage = '';
 
-    const { name, email, password, userType } = this.registerForm.value;
+      const {
+    username, 
+    lastName, 
+    phoneNumber, 
+    userType, 
+    email, 
+    password, 
+    confirmPassword 
+      } = this.registerForm.value;
 
-    this.authService.register(name, email, password, userType).subscribe({
+    this.authService.register(
+    username,
+    lastName,
+    phoneNumber,
+    userType,
+    email,
+    password,
+    confirmPassword
+    ).subscribe({
       next: () => {
         this.router.navigate(['/']);
       },

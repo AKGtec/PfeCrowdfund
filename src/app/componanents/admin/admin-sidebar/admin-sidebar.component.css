@@ -1,0 +1,182 @@
+.admin-sidebar {
+  width: 250px;
+  height: 100vh;
+  background: #2c3e50;
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.sidebar-menu {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 0;
+}
+
+.sidebar-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 0.25rem;
+}
+
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.sidebar-menu a:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.sidebar-menu a.active {
+  background: rgba(76, 175, 80, 0.2);
+  color: white;
+  border-left: 3px solid #4CAF50;
+}
+
+.sidebar-menu a mat-icon {
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.menu-section {
+  margin-top: 1rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.section-header mat-icon {
+  margin-right: 1rem;
+  font-size: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.menu-section ul {
+  margin-top: 0.5rem;
+}
+
+.menu-section li a {
+  padding-left: 3rem;
+  font-size: 0.9rem;
+}
+
+.menu-section li a mat-icon {
+  font-size: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .admin-sidebar {
+    width: 220px;
+  }
+  
+  .sidebar-menu a {
+    padding: 0.75rem 1rem;
+  }
+  
+  .menu-section li a {
+    padding-left: 2.5rem;
+  }
+}
+
+
+/* ... existing code ... */
+
+@media (max-width: 992px) {
+  .admin-sidebar {
+    width: 60px; /* Reduced width to show only icons */
+  }
+  
+  .sidebar-header {
+    padding: 1rem 0.5rem;
+    text-align: center;
+  }
+
+  .sidebar-header h3 {
+    display: none; /* Hide the header text */
+  }
+  
+  .section-header span,
+  .sidebar-menu a span {
+    display: none; /* Hide all text spans */
+  }
+  
+  .sidebar-menu a {
+    padding: 0.75rem;
+    justify-content: center;
+  }
+  
+  .sidebar-menu a mat-icon {
+    margin-right: 0; /* Remove margin as there's no text */
+  }
+  
+  .menu-section li a {
+    padding-left: 0.75rem;
+  }
+
+  /* Add tooltips for hover effect */
+  .sidebar-menu a:hover::after {
+    content: attr(title);
+    position: absolute;
+    left: 100%;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-sidebar {
+    width: 50px; /* Even smaller for phones */
+  }
+  
+  .sidebar-menu a {
+    padding: 0.5rem;
+  }
+  
+  .sidebar-menu a mat-icon {
+    font-size: 1rem;
+    width: 1rem;
+    height: 1rem;
+  }
+}

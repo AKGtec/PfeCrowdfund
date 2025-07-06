@@ -1,0 +1,19 @@
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-row mat-form-field {
+  flex: 1;
+  margin-top: 5px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+mat-checkbox {
+  margin: 1rem 0;
+}
