@@ -1,13 +1,13 @@
 <div class="project-management-container">
   <div class="header">
-    <h2>Project Management</h2>
+    <h2>Gestion des Projets</h2>
 <div class="search-bar">
   <mat-form-field appearance="outline">
-    <mat-label>Search projects</mat-label>
-    <input matInput 
-           [(ngModel)]="searchQuery" 
+    <mat-label>Rechercher des projets</mat-label>
+    <input matInput
+           [(ngModel)]="searchQuery"
            (keyup)="applyFilter($event)"
-           placeholder="Search...">
+           placeholder="Rechercher...">
     <button mat-icon-button matSuffix (click)="onSearch()">
       <mat-icon>search</mat-icon>
     </button>

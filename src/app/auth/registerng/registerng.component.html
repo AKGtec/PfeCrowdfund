@@ -1,33 +1,33 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
-    <label for="username">First Name</label>
+    <label for="username">Prénom</label>
     <div class="input-with-icon">
       <mat-icon>person</mat-icon>
-      <input 
-        type="text" 
-        id="username" 
-        formControlName="username" 
-        placeholder="Enter your first name">
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        placeholder="Entrez votre prénom">
     </div>
-    <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" 
+    <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
          class="error-message">
-      Please enter your first name
+      Veuillez entrer votre prénom
     </div>
   </div>
 
     <div class="form-group">
-    <label for="lastName">Last Name</label>
+    <label for="lastName">Nom de famille</label>
     <div class="input-with-icon">
       <mat-icon>person_outline</mat-icon>
-      <input 
-        type="text" 
-        id="lastName" 
-        formControlName="lastName" 
-        placeholder="Enter your last name">
+      <input
+        type="text"
+        id="lastName"
+        formControlName="lastName"
+        placeholder="Entrez votre nom de famille">
     </div>
-    <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" 
+    <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched"
          class="error-message">
-      Please enter your last name
+      Veuillez entrer votre nom de famille
     </div>
   </div>
 
@@ -35,83 +35,83 @@
     <label for="email">Email</label>
     <div class="input-with-icon">
       <mat-icon>email</mat-icon>
-      <input 
-        type="email" 
-        id="email" 
-        formControlName="email" 
-        placeholder="Enter your email">
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="Entrez votre email">
     </div>
-    <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" 
+    <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
          class="error-message">
-      Please enter a valid email
+      Veuillez entrer un email valide
     </div>
   </div>
 
    <div class="form-group">
-    <label for="phoneNumber">Phone Number</label>
+    <label for="phoneNumber">Numéro de téléphone</label>
     <div class="input-with-icon">
       <mat-icon>phone</mat-icon>
-      <input 
-        type="tel" 
-        id="phoneNumber" 
-        formControlName="phoneNumber" 
-        placeholder="Enter your phone number">
+      <input
+        type="tel"
+        id="phoneNumber"
+        formControlName="phoneNumber"
+        placeholder="Entrez votre numéro de téléphone">
     </div>
-    <div *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched" 
+    <div *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched"
          class="error-message">
-      Please enter a valid 10-digit phone number
+      Veuillez entrer un numéro de téléphone valide à 10 chiffres
     </div>
   </div>
 
   <div class="form-group">
-    <label for="password">Password</label>
-    <input 
-      type="password" 
-      id="password" 
-      formControlName="password" 
-      placeholder="Enter your password">
-    <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" 
+    <label for="password">Mot de passe</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      placeholder="Entrez votre mot de passe">
+    <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
          class="error-message">
-      Password must be at least 8 characters
+      Le mot de passe doit contenir au moins 8 caractères
     </div>
   </div>
 
   <div class="form-group">
-    <label for="confirmPassword">Confirm Password</label>
-    <input 
-      type="password" 
-      id="confirmPassword" 
-      formControlName="confirmPassword" 
-      placeholder="Confirm your password">
-    <div *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched" 
+    <label for="confirmPassword">Confirmer le mot de passe</label>
+    <input
+      type="password"
+      id="confirmPassword"
+      formControlName="confirmPassword"
+      placeholder="Confirmez votre mot de passe">
+    <div *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched"
          class="error-message">
-      Passwords must match
+      Les mots de passe doivent correspondre
     </div>
   </div>
 
   <div class="form-group">
-    <label for="userType">I want to</label>
+    <label for="userType">Je veux</label>
     <select id="userType" formControlName="userType">
-      <option value="Backer">Support projects</option>
-      <option value="ProjectOwner">Create projects</option>
+      <option value="Backer">Soutenir des projets</option>
+      <option value="ProjectOwner">Créer des projets</option>
     </select>
   </div>
 
   <div class="form-check">
     <input type="checkbox" id="terms" formControlName="acceptTerms">
     <label for="terms">
-      I agree to the <a href="/terms" target="_blank">Terms of Service</a> and 
-      <a href="/privacy" target="_blank">Privacy Policy</a>
+      J'accepte les <a href="/terms" target="_blank">Conditions d'utilisation</a> et la
+      <a href="/privacy" target="_blank">Politique de confidentialité</a>
     </label>
-    <div *ngIf="registerForm.get('acceptTerms')?.invalid && registerForm.get('acceptTerms')?.touched" 
+    <div *ngIf="registerForm.get('acceptTerms')?.invalid && registerForm.get('acceptTerms')?.touched"
          class="error-message">
-      You must accept the terms
+      Vous devez accepter les conditions
     </div>
   </div>
 
   <button type="submit" class="submit-btn" [disabled]="registerForm.invalid || isLoading">
-    <span *ngIf="!isLoading">Create Account</span>
-    <span *ngIf="isLoading">Creating account...</span>
+    <span *ngIf="!isLoading">Créer un compte</span>
+    <span *ngIf="isLoading">Création du compte...</span>
   </button>
 
   <div *ngIf="errorMessage" class="error-message server-error">

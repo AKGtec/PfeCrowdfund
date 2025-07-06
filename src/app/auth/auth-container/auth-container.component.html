@@ -1,15 +1,15 @@
 <div class="auth-container">
   <div class="auth-card">
     <div class="auth-tabs">
-      <button 
+      <button
         [class.active]="activeTab === 'login'"
         (click)="activeTab = 'login'">
-        Login
+        Connexion
       </button>
-      <button 
+      <button
         [class.active]="activeTab === 'register'"
         (click)="activeTab = 'register'">
-        Register
+        Inscription
       </button>
     </div>
 
@@ -20,10 +20,10 @@
 
     <div class="auth-footer">
       <div *ngIf="activeTab === 'login'">
-        Don't have an account? <a (click)="activeTab = 'register'">Register here</a>
+        Vous n'avez pas de compte ? <a (click)="activeTab = 'register'">Inscrivez-vous ici</a>
       </div>
       <div *ngIf="activeTab === 'register'">
-        Already have an account? <a (click)="activeTab = 'login'">Login here</a>
+        Vous avez déjà un compte ? <a (click)="activeTab = 'login'">Connectez-vous ici</a>
       </div>
     </div>
   </div>

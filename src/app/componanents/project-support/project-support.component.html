@@ -1,66 +1,66 @@
 <div class="support-container">
   <div *ngIf="showSuccess" class="success-message">
     <mat-icon>check_circle</mat-icon>
-    <h3>Thank you for your support!</h3>
-    <p>Your contribution is being processed. You'll receive a confirmation email shortly.</p>
-    <button mat-raised-button color="primary" (click)="showSuccess = false">Support Another Project</button>
+    <h3>Merci pour votre soutien !</h3>
+    <p>Votre contribution est en cours de traitement. Vous recevrez un email de confirmation sous peu.</p>
+    <button mat-raised-button color="primary" (click)="showSuccess = false">Soutenir un Autre Projet</button>
   </div>
 
   <form *ngIf="!showSuccess" [formGroup]="supportForm" (ngSubmit)="onSubmit()">
-    <h2>Support this project</h2>
+    <h2>Soutenir ce projet</h2>
 
     <!-- Amount Input -->
     <div class="form-group">
-      <label for="amount">Amount</label>
+      <label for="amount">Montant</label>
       <div class="amount-input">
         <span class="currency-symbol">$</span>
-        <input 
-          type="number" 
-          id="amount" 
-          formControlName="amount" 
-          placeholder="Enter amount"
+        <input
+          type="number"
+          id="amount"
+          formControlName="amount"
+          placeholder="Entrez le montant"
           [min]="selectedReward ? selectedReward.minimumAmount : 1"
           [readonly]="!!selectedReward">
       </div>
       <div *ngIf="amount?.invalid && (amount?.dirty || amount?.touched)" class="error-message">
-        <div *ngIf="amount?.errors?.['required']">Amount is required</div>
-        <div *ngIf="amount?.errors?.['min']">Minimum amount is {{ amount?.errors?.['min'].min | currency }}</div>
+        <div *ngIf="amount?.errors?.['required']">Le montant est requis</div>
+        <div *ngIf="amount?.errors?.['min']">Le montant minimum est {{ amount?.errors?.['min'].min | currency }}</div>
       </div>
     </div>
 
     <!-- Payment Method -->
     <div class="form-group">
-      <label for="paymentMethod">Payment Method</label>
+      <label for="paymentMethod">Méthode de Paiement</label>
       <select id="paymentMethod" formControlName="paymentMethod">
-        <option value="" disabled>Select payment method</option>
+        <option value="" disabled>Sélectionnez la méthode de paiement</option>
         <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
       </select>
       <div *ngIf="paymentMethod?.invalid && (paymentMethod?.dirty || paymentMethod?.touched)" class="error-message">
-        Payment method is required
+        La méthode de paiement est requise
       </div>
     </div>
 
     <!-- Additional Options -->
     <div class="form-group">
-      <label for="message">Message to Creator (Optional)</label>
-      <textarea id="message" formControlName="message" rows="3" placeholder="Write an optional message"></textarea>
+      <label for="message">Message au Créateur (Optionnel)</label>
+      <textarea id="message" formControlName="message" rows="3" placeholder="Écrivez un message optionnel"></textarea>
     </div>
 
     <div class="form-check">
       <input type="checkbox" id="isAnonymous" formControlName="isAnonymous">
-      <label for="isAnonymous">Support anonymously</label>
+      <label for="isAnonymous">Soutenir anonymement</label>
     </div>
 
     <!-- Submit Button -->
-    <button 
-      type="submit" 
-      class="submit-btn" 
+    <button
+      type="submit"
+      class="submit-btn"
       [disabled]="supportForm.invalid || isProcessing"
-      mat-raised-button 
+      mat-raised-button
       color="primary">
-      <span *ngIf="!isProcessing">Continue to Payment</span>
+      <span *ngIf="!isProcessing">Continuer vers le Paiement</span>
       <span *ngIf="isProcessing">
-        <mat-spinner diameter="20"></mat-spinner> Processing...
+        <mat-spinner diameter="20"></mat-spinner> Traitement en cours...
       </span>
     </button>
 

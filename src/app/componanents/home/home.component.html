@@ -2,23 +2,23 @@
   <!-- Hero Section -->
    <section class="hero-section" [ngStyle]="heroBackground">
     <div class="hero-content">
-      <h1>Bring creative projects to life</h1>
-      <p class="subtitle">The world's largest funding platform for creative projects</p>
+      <h1>Donnez vie aux projets créatifs</h1>
+      <p class="subtitle">La plus grande plateforme de financement au monde pour les projets créatifs</p>
       <div class="cta-buttons">
-       <button class="btn-primary" (click)="navigateTo('start-project')">Start a Project</button>
-        <button class="btn-secondary" (click)="navigateTo('discover')">Browse Projects</button>
+       <button class="btn-primary" (click)="navigateTo('start-project')">Créer un Projet</button>
+        <button class="btn-secondary" (click)="navigateTo('discover')">Parcourir les Projets</button>
       </div>
     </div>
   </section>
 
   <!-- Categories Section -->
   <section class="categories-section">
-    <h2>Projects Category</h2>
+    <h2>Catégories de Projets</h2>
     <div class="categories-grid">
       <div *ngFor="let category of featuredCategories" class="category-card">
         <span class="material-icons">{{category.icon}}</span>
         <h3>{{category.name}}</h3>
-        <p>{{category.count}} projects</p>
+        <p>{{category.count}} projets</p>
       </div>
     </div>
   </section>
@@ -26,8 +26,8 @@
   <!-- Trending Projects -->
   <section class="projects-section">
     <div class="section-header">
-      <h2>Trending Projects</h2>
-      <a href="/discover" class="see-all">See all</a>
+      <h2>Projets Tendance</h2>
+      <a href="/discover" class="see-all">Voir tout</a>
     </div>
     <div class="projects-grid">
       <div *ngFor="let project of trendingProjects" class="project-card">
@@ -44,15 +44,15 @@
           <div class="project-stats">
             <div>
               <span class="amount">{{project.amountRaised | currency}}</span>
-              <span>raised of {{project.goal | currency}} goal</span>
+              <span>collectés sur {{project.goal | currency}} objectif</span>
             </div>
             <div>
               <span class="days">{{project.daysLeft}}</span>
-              <span>days left</span>
+              <span>jours restants</span>
             </div>
           </div>
-          
-          <button class="btn-support">Support</button>
+
+          <button class="btn-support">Soutenir</button>
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@
 
   <!-- Success Stories -->
   <section class="success-section">
-    <h2>Success Stories</h2>
+    <h2>Histoires de Succès</h2>
     <div class="success-grid">
       <div *ngFor="let story of successStories" class="success-card">
         <div class="success-image" [style.backgroundImage]="'url(' + story.imageUrl + ')'"></div>
@@ -69,11 +69,11 @@
           <div class="success-stats">
             <div>
               <mat-icon>attach_money</mat-icon>
-              <span>{{story.raised | currency}} raised</span>
+              <span>{{story.raised | currency}} collectés</span>
             </div>
             <div>
               <mat-icon>people</mat-icon>
-              <span>{{story.backers}} backers</span>
+              <span>{{story.backers}} contributeurs</span>
             </div>
           </div>
         </div>
@@ -84,9 +84,9 @@
   <!-- Call to Action -->
   <section class="cta-section">
     <div class="cta-content">
-      <h2>Ready to bring your idea to life?</h2>
-      <p>Join thousands of creators who've brought their dreams to reality through our platform.</p>
-      <button class="btn-primary" (click)="navigateTo('start-project')">Start Your Project</button>
+      <h2>Prêt à donner vie à votre idée ?</h2>
+      <p>Rejoignez des milliers de créateurs qui ont concrétisé leurs rêves grâce à notre plateforme.</p>
+      <button class="btn-primary" (click)="navigateTo('start-project')">Créer Votre Projet</button>
     </div>
   </section>
 </div>

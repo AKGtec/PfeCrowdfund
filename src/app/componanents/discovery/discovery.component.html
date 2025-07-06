@@ -1,7 +1,7 @@
 <div class="discovery-container">
   <div class="discovery-header">
-    <h1>Discover Projects</h1>
-    <p>Find inspiring projects to support</p>
+    <h1>Découvrir les Projets</h1>
+    <p>Trouvez des projets inspirants à soutenir</p>
   </div>
 
   <div class="discovery-content">
@@ -9,56 +9,56 @@
 <div class="filters-bar">
       <form [formGroup]="filtersForm" class="filters-form-horizontal">
         <div class="filter-group">
-          <label for="search">Search</label>
-          <input class="search-input" type="text" formControlName="search" placeholder="Search projects...">
+          <label for="search">Rechercher</label>
+          <input class="search-input" type="text" formControlName="search" placeholder="Rechercher des projets...">
         </div>
         <div class="filter-group">
-          <label for="">Category</label>
+          <label for="">Catégorie</label>
           <select formControlName="category">
-            <option value="">All Categories</option>
+            <option value="">Toutes les Catégories</option>
             <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
           </select>
         </div>
         <div class="filter-group">
-          <label for="">Funding Type</label>
+          <label for="">Type de Financement</label>
           <select formControlName="fundingType">
-            <option value="">All Types</option>
-            <option value="Donation">Donation</option>
-            <option value="Reward">Reward-based</option>
-            <option value="Equity">Equity</option>
-            <option value="Loan">Loan</option>
+            <option value="">Tous les Types</option>
+            <option value="Donation">Don</option>
+            <option value="Reward">Basé sur les récompenses</option>
+            <option value="Equity">Participation</option>
+            <option value="Loan">Prêt</option>
           </select>
         </div>
           <div class="filter-group">
-            <label for="">Funding Goal Range</label>
+            <label for="">Plage d'Objectif de Financement</label>
             <div class="range-inputs">
-              <input 
-                type="number" 
-                formControlName="minGoal" 
-                placeholder="Min Amount"
+              <input
+                type="number"
+                formControlName="minGoal"
+                placeholder="Montant Min"
                 min="0">
-              <span>to</span>
-              <input 
-                type="number" 
-                formControlName="maxGoal" 
-                placeholder="Max Amount"
+              <span>à</span>
+              <input
+                type="number"
+                formControlName="maxGoal"
+                placeholder="Montant Max"
                 min="0">
             </div>
           </div>
         <div class="filter-group">
-          <label for="" >Sort By</label>
+          <label for="" >Trier par</label>
           <select formControlName="sort">
             <option *ngFor="let option of sortOptions" [value]="option.value">{{option.label}}</option>
           </select>
         </div>
-        <button type="button" class="reset-btn" (click)="resetFilters()">Reset Filters</button>
+        <button type="button" class="reset-btn" (click)="resetFilters()">Réinitialiser les Filtres</button>
       </form>
     </div>
 
     <!-- Projects Grid -->
     <main class="projects-grid-container">
       <div class="sort-controls">
-        <span>{{filteredProjects.length}} projects found</span>
+        <span>{{filteredProjects.length}} projets trouvés</span>
       </div>
 
       <div *ngIf="isLoading" class="loading-spinner">
@@ -67,8 +67,8 @@
 
       <div *ngIf="!isLoading && filteredProjects.length === 0" class="no-results">
         <mat-icon>search_off</mat-icon>
-        <h3>No projects found</h3>
-        <p>Try adjusting your search filters</p>
+        <h3>Aucun projet trouvé</h3>
+        <p>Essayez d'ajuster vos filtres de recherche</p>
       </div>
 
       <div class="projects-grid">
@@ -91,18 +91,18 @@
               </div>
               <div class="progress-stats">
                 <span class="percentage">{{progressPercentage(project) | number:'1.0-0'}}%</span>
-                <span class="amount">{{project.amountRaised | currency}} raised of {{project.fundingGoal | currency}}</span>
+                <span class="amount">{{project.amountRaised | currency}} collectés sur {{project.fundingGoal | currency}}</span>
               </div>
             </div>
-            
+
             <div class="project-meta">
               <div class="views">
                 <mat-icon>visibility</mat-icon>
-                <span>{{project.viewsCount}} views</span>
+                <span>{{project.viewsCount}} vues</span>
               </div>
               <div class="days-left">
                 <mat-icon>schedule</mat-icon>
-                <span>{{daysLeft(project)}} days left</span>
+                <span>{{daysLeft(project)}} jours restants</span>
               </div>
             </div>
           </div>

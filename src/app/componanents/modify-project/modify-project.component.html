@@ -1,90 +1,90 @@
 <div class="modify-project-container">
   <div class="project-form-container">
-    <h1>Modify Your Project</h1>
-    <p class="subtitle">Update your project details</p>
-    
+    <h1>Modifier Votre Projet</h1>
+    <p class="subtitle">Mettre à jour les détails de votre projet</p>
+
     <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
       <!-- Basic Information -->
       <div class="form-section">
-        <h2>Basic Information</h2>
+        <h2>Informations de Base</h2>
         <div class="form-group">
-          <label for="title">Project Title*</label>
-          <input type="text" id="title" formControlName="title" placeholder="What's your project called?">
+          <label for="title">Titre du Projet*</label>
+          <input type="text" id="title" formControlName="title" placeholder="Comment s'appelle votre projet ?">
           <div *ngIf="projectForm.get('title')?.invalid && projectForm.get('title')?.touched" class="error-message">
-            Title is required and must be at least 5 characters
+            Le titre est requis et doit contenir au moins 5 caractères
           </div>
         </div>
-        
+
         <div class="form-row">
           <div class="form-group">
-            <label for="category">Category*</label>
+            <label for="category">Catégorie*</label>
             <select id="category" formControlName="categoryId">
-              <option value="">Select a category</option>
+              <option value="">Sélectionnez une catégorie</option>
               <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
             </select>
             <div *ngIf="projectForm.get('categoryId')?.invalid && projectForm.get('categoryId')?.touched" class="error-message">
-              Please select a category
+              Veuillez sélectionner une catégorie
             </div>
           </div>
-          
+
           <div class="form-group">
-            <label for="fundingType">Funding Type*</label>
+            <label for="fundingType">Type de Financement*</label>
             <select id="fundingType" formControlName="fundingType">
-              <option value="">Select funding type</option>
+              <option value="">Sélectionnez le type de financement</option>
               <option *ngFor="let type of fundingTypes" [value]="type.name">{{type.name}}</option>
             </select>
             <div *ngIf="projectForm.get('fundingType')?.invalid && projectForm.get('fundingType')?.touched" class="error-message">
-              Please select a funding type
+              Veuillez sélectionner un type de financement
             </div>
           </div>
         </div>
       </div>
-      
+
       <!-- Project Details -->
       <div class="form-section">
-        <h2>Project Details</h2>
+        <h2>Détails du Projet</h2>
         <div class="form-group">
-          <label for="description">Project Description*</label>
-          <textarea id="description" formControlName="description" rows="6" 
-                    placeholder="Tell the world about your project (at least 50 characters)..."></textarea>
+          <label for="description">Description du Projet*</label>
+          <textarea id="description" formControlName="description" rows="6"
+                    placeholder="Parlez au monde de votre projet (au moins 50 caractères)..."></textarea>
           <div *ngIf="projectForm.get('description')?.invalid && projectForm.get('description')?.touched" class="error-message">
-            Description must be at least 50 characters
+            La description doit contenir au moins 50 caractères
           </div>
         </div>
 
         <div class="form-group">
-          <label for="shortDescription">Short Description*</label>
-          <textarea id="shortDescription" formControlName="shortDescription" rows="2" 
-                    placeholder="A brief summary of your project (max 100 characters)" [readOnly]="true"></textarea>
+          <label for="shortDescription">Description Courte*</label>
+          <textarea id="shortDescription" formControlName="shortDescription" rows="2"
+                    placeholder="Un bref résumé de votre projet (max 100 caractères)" [readOnly]="true"></textarea>
           <div class="character-count">
             {{ projectForm.get('shortDescription')?.value?.length || 0 }}/100
           </div>
         </div>
 
         <div class="form-group">
-          <label for="risksChallenges">Risks & Challenges</label>
-          <textarea id="risksChallenges" formControlName="risksChallenges" rows="3" 
-                    placeholder="What challenges might you face and how will you overcome them?"></textarea>
+          <label for="risksChallenges">Risques et Défis</label>
+          <textarea id="risksChallenges" formControlName="risksChallenges" rows="3"
+                    placeholder="Quels défis pourriez-vous rencontrer et comment les surmonterez-vous ?"></textarea>
         </div>
       </div>
-      
+
       <!-- Funding Information -->
       <div class="form-section">
-        <h2>Funding Information</h2>
+        <h2>Informations de Financement</h2>
         <div class="form-row">
           <div class="form-group">
-            <label for="fundingGoal">Funding Goal (USD)*</label>
+            <label for="fundingGoal">Objectif de Financement (USD)*</label>
             <input type="number" id="fundingGoal" formControlName="fundingGoal">
             <div *ngIf="projectForm.get('fundingGoal')?.invalid && projectForm.get('fundingGoal')?.touched" class="error-message">
-              Minimum funding goal is $100
+              L'objectif de financement minimum est de 100$
             </div>
           </div>
-          
+
           <div class="form-group">
-            <label for="endDate">Campaign End Date*</label>
+            <label for="endDate">Date de Fin de Campagne*</label>
             <input type="date" id="endDate" formControlName="endDate" [min]="getMinEndDate()">
             <div *ngIf="projectForm.get('endDate')?.invalid && projectForm.get('endDate')?.touched" class="error-message">
-              Please select a valid end date
+              Veuillez sélectionner une date de fin valide
             </div>
           </div>
         </div>
@@ -92,24 +92,12 @@
       
       <!-- Media -->
       <div class="form-section">
-        <h2>Media</h2>
+        <h2>Médias</h2>
         <div class="form-row">
-         <!-- <div class="form-group">
-            <label for="coverImage">Cover Image</label>
-            <input type="file" id="coverImage" (change)="onFileChange($event)" accept="image/*">
-            <small>Recommended size: 1200x675 pixels (Max 5MB)</small>
-            
-             Show current/preview image 
-            <div *ngIf="previewImage" class="image-preview">
-              <img [src]="previewImage" alt="Cover preview">
-              <button type="button" (click)="removeImage()">Change Image</button>
-            </div>
-          </div>-->
-          
           <div class="form-group">
-            <label for="videoUrl">Video URL (Optional)</label>
-            <input type="url" id="videoUrl" formControlName="videoUrl" placeholder="https://youtube.com/yourvideo">
-            <small>YouTube or Vimeo links work best</small>
+            <label for="videoUrl">URL Vidéo (Optionnel)</label>
+            <input type="url" id="videoUrl" formControlName="videoUrl" placeholder="https://youtube.com/votrevideo">
+            <small>Les liens YouTube ou Vimeo fonctionnent le mieux</small>
           </div>
         </div>
       </div>
@@ -117,7 +105,7 @@
       <!-- Submit Section -->
       <div class="form-submit">
         <button type="submit" [disabled]="projectForm.invalid || isSubmitting" class="submit-btn">
-          {{ isSubmitting ? 'Updating...' : 'Update Project' }}
+          {{ isSubmitting ? 'Mise à jour...' : 'Mettre à Jour le Projet' }}
         </button>
       </div>
     </form>

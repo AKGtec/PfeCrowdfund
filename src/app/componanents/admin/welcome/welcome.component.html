@@ -2,8 +2,8 @@
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-content">
-      <h1>Welcome to Admin Dashboard</h1>
-      <p class="subtitle">Manage and monitor your crowdfunding platform</p>
+      <h1>Bienvenue dans le Tableau de Bord Admin</h1>
+      <p class="subtitle">Gérez et surveillez votre plateforme de financement participatif</p>
     </div>
   </section>
 
@@ -13,7 +13,7 @@
       <div class="stat-card">
         <mat-icon>people</mat-icon>
         <div class="stat-details">
-          <h3>Total Users</h3>
+          <h3>Total Utilisateurs</h3>
           <p class="stat-number">{{dashboardStats.totalUsers}}</p>
         </div>
       </div>
@@ -21,7 +21,7 @@
       <div class="stat-card">
         <mat-icon>folder</mat-icon>
         <div class="stat-details">
-          <h3>Total Projects</h3>
+          <h3>Total Projets</h3>
           <p class="stat-number">{{dashboardStats.totalProjects}}</p>
         </div>
       </div>
@@ -29,7 +29,7 @@
       <div class="stat-card">
         <mat-icon>pending</mat-icon>
         <div class="stat-details">
-          <h3>Pending Approvals</h3>
+          <h3>Approbations en Attente</h3>
           <p class="stat-number">{{dashboardStats.pendingApprovals}}</p>
         </div>
       </div>
@@ -37,7 +37,7 @@
       <div class="stat-card">
         <mat-icon>attach_money</mat-icon>
         <div class="stat-details">
-          <h3>Total Funding</h3>
+          <h3>Financement Total</h3>
           <p class="stat-number">{{dashboardStats.totalFunding | currency}}</p>
         </div>
       </div>
@@ -47,18 +47,18 @@
   <!-- Recent Activity Section -->
   <section class="activity-section">
     <div class="section-header">
-      <h2>Recent Projects</h2>
-      <a routerLink="/admin/projects" class="see-all">See all projects</a>
+      <h2>Projets Récents</h2>
+      <a routerLink="/admin/projects" class="see-all">Voir tous les projets</a>
     </div>
     <div class="activity-grid">
       <div *ngFor="let project of recentProjects" class="activity-card">
         <div class="activity-details">
           <h3>{{project.title}}</h3>
-          <p class="creator">by {{project.creator}}</p>
+          <p class="creator">par {{project.creator}}</p>
           <div class="status-chip" [class.pending]="project.status === 'Pending'">
             {{project.status}}
           </div>
-          <p class="submission-date">Submitted: {{project.submitDate | date}}</p>
+          <p class="submission-date">Soumis : {{project.submitDate | date}}</p>
           <div class="category-tag">{{project.category}}</div>
         </div>
       </div>
@@ -68,8 +68,8 @@
   <!-- Recent Users Section -->
   <section class="users-section">
     <div class="section-header">
-      <h2>Recent Users</h2>
-      <a routerLink="/admin/users" class="see-all">See all users</a>
+      <h2>Utilisateurs Récents</h2>
+      <a routerLink="/admin/users" class="see-all">Voir tous les utilisateurs</a>
     </div>
     <div class="users-grid">
       <div *ngFor="let user of recentUsers" class="user-card">
@@ -79,8 +79,8 @@
         <div class="user-details">
           <h3>{{user.name}}</h3>
           <p class="user-type">{{user.type}}</p>
-          <p class="join-date">Joined: {{user.joinDate | date}}</p>
-          <p class="project-count">Projects: {{user.projectCount}}</p>
+          <p class="join-date">Rejoint : {{user.joinDate | date}}</p>
+          <p class="project-count">Projets : {{user.projectCount}}</p>
         </div>
       </div>
     </div>

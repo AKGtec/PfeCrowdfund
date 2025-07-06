@@ -18,7 +18,7 @@
       <div class="project-info">
         <mat-card class="info-card">
           <mat-card-header>
-            <mat-card-title>About This Project</mat-card-title>
+            <mat-card-title>À Propos de ce Projet</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <div class="project-description" [innerHTML]="project.description | markdown"></div>
@@ -27,7 +27,7 @@
 
         <mat-card class="info-card" *ngIf="project.risksChallenges">
           <mat-card-header>
-            <mat-card-title>Risks & Challenges</mat-card-title>
+            <mat-card-title>Risques et Défis</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <div class="project-risks" [innerHTML]="project.risksChallenges | markdown"></div>
@@ -42,31 +42,31 @@
           <mat-card-content>
             <div class="funding-progress">
               <h2 class="amount-raised">{{ project.amountRaised | currency }}</h2>
-              <span class="funding-goal">pledged of {{ project.fundingGoal | currency }} goal</span>
+              <span class="funding-goal">promis sur {{ project.fundingGoal | currency }} objectif</span>
             </div>
-            
+
             <mat-progress-bar class="progress-bar" mode="determinate" [value]="progressPercentage"></mat-progress-bar>
-            
+
             <div class="funding-stats">
               <div class="stat">
                 <span class="stat-value">{{ project.viewsCount | number }}</span>
-                <span class="stat-label">views</span>
+                <span class="stat-label">vues</span>
               </div>
               <div class="stat">
                 <span class="stat-value">{{ daysLeft }}</span>
-                <span class="stat-label">days left</span>
+                <span class="stat-label">jours restants</span>
               </div>
             </div>
 
-            <button *ngIf="!editme()" mat-flat-button color="primary" class="support-button" (click)="navigateTo('project-support/')">Support This Project</button>
-            <button *ngIf="editme()" mat-stroked-button color="accent" class="support-button" (click)="navigateTop('modify-project/')">Make Some Changes</button>
+            <button *ngIf="!editme()" mat-flat-button color="primary" class="support-button" (click)="navigateTo('project-support/')">Soutenir ce Projet</button>
+            <button *ngIf="editme()" mat-stroked-button color="accent" class="support-button" (click)="navigateTop('modify-project/')">Apporter des Modifications</button>
             
             <mat-divider></mat-divider>
 
             <div class="project-meta">
               <div class="meta-item">
                 <mat-icon>event</mat-icon>
-                <span>Launched on {{ formatDate(project.startDate) }}</span>
+                <span>Lancé le {{ formatDate(project.startDate) }}</span>
               </div>
               <div class="meta-item">
                 <mat-icon>category</mat-icon>
@@ -83,11 +83,11 @@
         <!-- Video Embed -->
         <mat-card class="video-card" *ngIf="project.videoUrl">
           <mat-card-header>
-            <mat-card-title>Project Video</mat-card-title>
+            <mat-card-title>Vidéo du Projet</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <div class="video-embed">
-              <iframe title="Project Video" [src]="project.videoUrl | safeUrl" allowfullscreen></iframe>
+              <iframe title="Vidéo du Projet" [src]="project.videoUrl | safeUrl" allowfullscreen></iframe>
             </div>
           </mat-card-content>
         </mat-card>

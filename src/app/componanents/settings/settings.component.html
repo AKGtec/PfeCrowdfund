@@ -1,26 +1,26 @@
 <div class="settings-container">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Account Settings</mat-card-title>
-      <mat-card-subtitle>Manage your account information</mat-card-subtitle>
+      <mat-card-title>Paramètres du Compte</mat-card-title>
+      <mat-card-subtitle>Gérez les informations de votre compte</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
       <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
         <div class="form-row">
           <mat-form-field appearance="outline">
-            <mat-label>First Name</mat-label>
+            <mat-label>Prénom</mat-label>
             <input matInput formControlName="firstName">
             <mat-error *ngIf="settingsForm.get('firstName')?.invalid">
-              First name is required
+              Le prénom est requis
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Last Name</mat-label>
+            <mat-label>Nom de famille</mat-label>
             <input matInput formControlName="lastName">
             <mat-error *ngIf="settingsForm.get('lastName')?.invalid">
-              Last name is required
+              Le nom de famille est requis
             </mat-error>
           </mat-form-field>
         </div>
@@ -32,17 +32,17 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Phone Number</mat-label>
+            <mat-label>Numéro de téléphone</mat-label>
             <input matInput formControlName="phoneNumber">
             <mat-error *ngIf="settingsForm.get('phoneNumber')?.invalid">
-              Please enter a valid 10-digit phone number
+              Veuillez entrer un numéro de téléphone valide à 10 chiffres
             </mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-row">
           <mat-form-field appearance="outline">
-            <mat-label>Birth Date</mat-label>
+            <mat-label>Date de naissance</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="birthDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
@@ -50,28 +50,28 @@
         </div>
 
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Bio</mat-label>
+          <mat-label>Biographie</mat-label>
           <textarea matInput rows="4" formControlName="bio"
-                    placeholder="Tell us about yourself..."></textarea>
+                    placeholder="Parlez-nous de vous..."></textarea>
           <mat-hint align="end">{{settingsForm.get('bio')?.value?.length || 0}}/500</mat-hint>
         </mat-form-field>
 
         <!-- Read-only Information -->
         <div class="info-section">
-          <p><strong>Account Type:</strong> {{userSettings?.userType}}</p>
-          <p><strong>Member Since:</strong> {{userSettings?.createdAt | date}}</p>
-          <p><strong>Account Status:</strong> {{userSettings?.status}}</p>
-          <p><strong>Verification Status:</strong> 
-            {{userSettings?.isVerified ? 'Verified' : 'Not Verified'}}
+          <p><strong>Type de compte :</strong> {{userSettings?.userType}}</p>
+          <p><strong>Membre depuis :</strong> {{userSettings?.createdAt | date}}</p>
+          <p><strong>Statut du compte :</strong> {{userSettings?.status}}</p>
+          <p><strong>Statut de vérification :</strong>
+            {{userSettings?.isVerified ? 'Vérifié' : 'Non vérifié'}}
           </p>
         </div>
 
         <div class="form-actions">
-          <button mat-button type="button" routerLink="/">Cancel</button>
+          <button mat-button type="button" routerLink="/">Annuler</button>
           <button mat-raised-button color="primary" type="submit"
                   [disabled]="settingsForm.invalid || isLoading">
             <mat-icon>save</mat-icon>
-            Save Changes
+            Enregistrer les Modifications
           </button>
         </div>
       </form>

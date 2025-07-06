@@ -9,10 +9,10 @@
     <!-- Desktop Navigation -->
     <nav class="desktop-nav">
       <ul>
-        <li><a (click)="navigateTo('')">Home</a></li>
-        <li><a (click)="navigateTo('discover')">Discover</a></li>
-        <li><a *ngIf="!isAdmin() && !isBacker()" (click)="navigateTo('start-project')">Start a Project</a></li>
-        <li><a (click)="navigateTo('about')">About</a></li>
+        <li><a (click)="navigateTo('')">Accueil</a></li>
+        <li><a (click)="navigateTo('discover')">Découvrir</a></li>
+        <li><a *ngIf="!isAdmin() && !isBacker()" (click)="navigateTo('start-project')">Créer un Projet</a></li>
+        <li><a (click)="navigateTo('about')">À Propos</a></li>
       </ul>
     </nav>
 
@@ -31,19 +31,19 @@
 
   <a (click)="navigateTo('settings')">
     <mat-icon>settings</mat-icon>
-    <span>Settings</span>
+    <span>Paramètres</span>
   </a>
   <a *ngIf="isAdmin()" (click)="navigateTo('/dashboard/welcome')">
     <mat-icon>dashboard</mat-icon>
-    <span>Admin dashboard</span>
+    <span>Tableau de bord Admin</span>
   </a>
   <a *ngIf="isCreator()" (click)="navigateTop('/project/')">
     <mat-icon>edit</mat-icon>
-    <span>My Project</span>
+    <span>Mon Projet</span>
   </a>
   <a (click)="logout()">
     <mat-icon>logout</mat-icon>
-    <span>Logout</span>
+    <span>Déconnexion</span>
   </a>
 </div>
         </div>
@@ -56,15 +56,15 @@
    <div class="dropdown-menu" [class.show]="showDropdown">
   <a (click)="navigateTo('login')">
     <mat-icon>login</mat-icon>
-    <span>Login</span>
+    <span>Connexion</span>
   </a>
   <a *ngIf="isAdmin()" (click)="navigateTo('/dashboard')">
     <mat-icon>dashboard</mat-icon>
-    <span>Admin dashboard</span>
+    <span>Tableau de bord Admin</span>
   </a>
   <a *ngIf="isCreator()" (click)="navigateTo('/project/1')">
     <mat-icon>edit</mat-icon>
-    <span>My Project</span>
+    <span>Mon Projet</span>
   </a>
 </div>
       </div>
@@ -79,15 +79,15 @@
   <!-- Mobile Navigation -->
   <div class="mobile-nav" [class.active]="showMobileMenu">
     <ul>
-      <li><a (click)="navigateTo('')">Home</a></li>
-      <li><a (click)="navigateTo('discover')">Discover</a></li>
-      <li><a *ngIf="!isAdmin()" (click)="navigateTo('start-project')">Start a Project</a></li>
-      <li><a (click)="navigateTo('about')">About</a></li>
+      <li><a (click)="navigateTo('')">Accueil</a></li>
+      <li><a (click)="navigateTo('discover')">Découvrir</a></li>
+      <li><a *ngIf="!isAdmin()" (click)="navigateTo('start-project')">Créer un Projet</a></li>
+      <li><a (click)="navigateTo('about')">À Propos</a></li>
       <li *ngIf="!isLoggedIn">
-        <a (click)="navigateTo('login')">Login</a>
+        <a (click)="navigateTo('login')">Connexion</a>
       </li>
       <li *ngIf="isLoggedIn">
-        <a (click)="logout()">Logout</a>
+        <a (click)="logout()">Déconnexion</a>
       </li>
     </ul>
   </div>
